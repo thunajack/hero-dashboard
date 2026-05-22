@@ -1,5 +1,9 @@
 # Hero Dashboard
+## Open the app / Apri l'app
 
+- Versione italiana: https://thunajack.github.io/hero-dashboard/
+- English version: https://thunajack.github.io/hero-dashboard/index-en.html
+  
 ## Italiano
 
 **Hero Dashboard** è uno strumento fan-made gratuito per uso personale, pensato per gestire eroi, inventari, effetti, abilità, alleati e salvataggi in campagne dungeon crawler/fantasy.
