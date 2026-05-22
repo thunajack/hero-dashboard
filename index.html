@@ -2293,7 +2293,7 @@ function applyHeroImport(){
 }
 
 
-const SPELL_COLS=['id','nome','categoria','setMagia','origine','tipoFunzionale','lanciatoDa','bersaglio','tipoEffetto','durata','utilizzabileDa','consumabile','unico','bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','attaccoFisso','bloccaMovimento','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile','dannoCorpo','effettoDashboard','testoRapido','noteRegola','espansione','edizione','immagine'];
+const SPELL_COLS=['id','nome','categoria','setMagia','origine','tipoFunzionale','lanciatoDa','bersaglio','tipoEffetto','durata','utilizzabileDa','consumabile','unico','bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento','arrotondamento','ordineCalcolo','attaccoFisso','bloccaMovimento','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile','dannoCorpo','effettoDashboard','testoRapido','noteRegola','espansione','edizione','immagine'];
 let pendingSpellImport=null;
 function spellById(id){ return (db.spellCatalog||[]).find(s=>s.id===id); }
 function heroSpellRows(heroId){ return (db.heroSpells||[]).filter(x=>x.heroId===heroId).map(x=>({...x,spell:spellById(x.spellId)})).filter(x=>x.spell); }
@@ -2354,12 +2354,29 @@ function applySpellImport(){
 function spellStatEffect(sp){
   const name=String(sp?.nome||'').toLowerCase();
   const text=(String(sp?.testoRapido||'')+' '+String(sp?.noteRegola||'')+' '+String(sp?.effettoDashboard||'')).toLowerCase();
-  const eff={bonusAttacco:0,bonusDifesa:0,bonusMovimento:0,malusAttacco:0,malusDifesa:0,malusMovimento:0,moltiplicatoreMovimento:1,attaccoFisso:null,bloccaAttacco:false,bloccaDifesa:false,bloccaMovimento:false,saltaTurno:false,label:''};
+  const eff={
+    bonusAttacco:0,bonusDifesa:0,bonusMovimento:0,
+    malusAttacco:0,malusDifesa:0,malusMovimento:0,
+    moltiplicatoreAttacco:1,moltiplicatoreDifesa:1,moltiplicatoreMovimento:1,
+    divisoreAttacco:1,divisoreDifesa:1,divisoreMovimento:1,
+    arrotondamento:String(sp?.arrotondamento||'difetto'),
+    ordineCalcolo:String(sp?.ordineCalcolo||'dopo_bonus'),
+    attaccoFisso:null,difesaFissa:null,movimentoFisso:null,
+    bloccaAttacco:false,bloccaDifesa:false,bloccaMovimento:false,saltaTurno:false,label:''
+  };
   const labels=[];
   const addLabel=(x)=>{ if(x && !labels.includes(x)) labels.push(x); };
 
-  ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento'].forEach(k=>{ if(sp && sp[k]!==undefined && sp[k]!=='' && Number.isFinite(Number(sp[k]))) eff[k]=Number(sp[k]); });
+  ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento'].forEach(k=>{ if(sp && sp[k]!==undefined && sp[k]!=='' && Number.isFinite(Number(sp[k]))) eff[k]=Number(sp[k]); });
+  if(!eff.moltiplicatoreAttacco) eff.moltiplicatoreAttacco=1;
+  if(!eff.moltiplicatoreDifesa) eff.moltiplicatoreDifesa=1;
+  if(!eff.moltiplicatoreMovimento) eff.moltiplicatoreMovimento=1;
+  if(!eff.divisoreAttacco) eff.divisoreAttacco=1;
+  if(!eff.divisoreDifesa) eff.divisoreDifesa=1;
+  if(!eff.divisoreMovimento) eff.divisoreMovimento=1;
   if(sp && sp.attaccoFisso!==undefined && sp.attaccoFisso!=='' && Number.isFinite(Number(sp.attaccoFisso))) eff.attaccoFisso=Number(sp.attaccoFisso);
+  if(sp && sp.difesaFissa!==undefined && sp.difesaFissa!=='' && Number.isFinite(Number(sp.difesaFissa))) eff.difesaFissa=Number(sp.difesaFissa);
+  if(sp && sp.movimentoFisso!==undefined && sp.movimentoFisso!=='' && Number.isFinite(Number(sp.movimentoFisso))) eff.movimentoFisso=Number(sp.movimentoFisso);
   ['bloccaAttacco','bloccaDifesa','bloccaMovimento','saltaTurno'].forEach(k=>{ if(sp && bool(sp[k])) eff[k]=true; });
 
   if(name.includes('__disattivato_pelle_di_pietra__')){ eff.bonusDifesa=Math.max(eff.bonusDifesa,1); }
@@ -2373,7 +2390,17 @@ function spellStatEffect(sp){
 
   if(text.includes('1 dado') && text.includes('difesa') && !String(sp?.categoria||'').toLowerCase().includes('terrore')) eff.bonusDifesa=Math.max(eff.bonusDifesa,1);
   if(text.includes('2 dadi') && text.includes('attacco') && !String(sp?.categoria||'').toLowerCase().includes('terrore')) eff.bonusAttacco=Math.max(eff.bonusAttacco,2);
-  if(text.includes('doppio') && text.includes('movimento')) eff.moltiplicatoreMovimento=2;
+  const hasAttack=/(attacco|attaccare|dadi\s+d['’]?attacco)/.test(text);
+  const hasDefense=/(difesa|difendere|dadi\s+difesa)/.test(text);
+  const hasMovement=/(movimento|muovere|muoversi|dadi\s+movimento)/.test(text);
+  const saysDouble=/(raddoppia|raddoppiato|doppio|doppi|moltiplica\s+per\s+2|x2|×2)/.test(text);
+  const saysHalf=/(dimezza|dimezzato|met[aà]|dividi\s+per\s+2|diviso\s+2|÷2|\/2)/.test(text);
+  if(saysDouble && hasAttack) eff.moltiplicatoreAttacco=Math.max(eff.moltiplicatoreAttacco,2);
+  if(saysDouble && hasDefense) eff.moltiplicatoreDifesa=Math.max(eff.moltiplicatoreDifesa,2);
+  if(saysDouble && hasMovement) eff.moltiplicatoreMovimento=Math.max(eff.moltiplicatoreMovimento,2);
+  if(saysHalf && hasAttack) eff.divisoreAttacco=Math.max(eff.divisoreAttacco,2);
+  if(saysHalf && hasDefense) eff.divisoreDifesa=Math.max(eff.divisoreDifesa,2);
+  if(saysHalf && hasMovement) eff.divisoreMovimento=Math.max(eff.divisoreMovimento,2);
 
   if(eff.bonusAttacco) addLabel('+'+eff.bonusAttacco+'D Attacco');
   if(eff.bonusDifesa) addLabel('+'+eff.bonusDifesa+'D Difesa');
@@ -2382,11 +2409,18 @@ function spellStatEffect(sp){
   if(eff.malusDifesa) addLabel('-'+eff.malusDifesa+'D Difesa');
   if(eff.malusMovimento) addLabel('-'+eff.malusMovimento+' Movimento');
   if(eff.attaccoFisso!==null) addLabel('Attacco fissato a '+eff.attaccoFisso+'D');
+  if(eff.difesaFissa!==null) addLabel('Difesa '+eff.difesaFissa+'D');
+  if(eff.movimentoFisso!==null) addLabel('Movimento '+eff.movimentoFisso);
+  if(eff.moltiplicatoreAttacco && eff.moltiplicatoreAttacco!==1) addLabel('Attacco ×'+eff.moltiplicatoreAttacco);
+  if(eff.moltiplicatoreDifesa && eff.moltiplicatoreDifesa!==1) addLabel('Difesa ×'+eff.moltiplicatoreDifesa);
+  if(eff.moltiplicatoreMovimento && eff.moltiplicatoreMovimento!==1) addLabel('Movimento ×'+eff.moltiplicatoreMovimento);
+  if(eff.divisoreAttacco && eff.divisoreAttacco!==1) addLabel('Attacco ÷'+eff.divisoreAttacco);
+  if(eff.divisoreDifesa && eff.divisoreDifesa!==1) addLabel('Difesa ÷'+eff.divisoreDifesa);
+  if(eff.divisoreMovimento && eff.divisoreMovimento!==1) addLabel('Movimento ÷'+eff.divisoreMovimento);
   if(eff.bloccaAttacco) addLabel('non attacca');
   if(eff.bloccaDifesa) addLabel('non difende');
   if(eff.bloccaMovimento) addLabel('non si muove');
   if(eff.saltaTurno) addLabel('salta il prossimo turno');
-  if(eff.moltiplicatoreMovimento && eff.moltiplicatoreMovimento!==1) addLabel('Movimento ×'+eff.moltiplicatoreMovimento);
   if(!labels.length && sp?.effettoDashboard) addLabel(sp.effettoDashboard);
   eff.label=labels.join(', ');
   return eff;
@@ -2441,7 +2475,7 @@ function normalizeImportedSpell(src, usedIds=new Set(), localIds=new Set()){
   obj.id=uniqueImportId(String(obj.id).trim(), usedIds, localIds, false);
   obj.origine=obj.origine||'Magia'; obj.tipoFunzionale=obj.tipoFunzionale||'Incantesimo'; obj.categoria=obj.categoria||'Incantesimo';
   obj.consumabile=bool(obj.consumabile||true); obj.unico=bool(obj.unico);
-  ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','attaccoFisso','dannoCorpo'].forEach(k=>obj[k]=obj[k]===''?'':num(obj[k]));
+  ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento','attaccoFisso','dannoCorpo'].forEach(k=>obj[k]=obj[k]===''?'':num(obj[k]));
   ['bloccaMovimento','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile'].forEach(k=>obj[k]=bool(obj[k]));
   return obj;
 }
@@ -2461,7 +2495,7 @@ function normalizeDB(){
   db.activeHeroIds ||= db.heroes.slice(0,4).map(h=>h.id); db.settings ||= {};
   if(db.settings.campaignNumber===undefined) db.settings.campaignNumber='';
   if(db.settings.campaignSet===undefined) db.settings.campaignSet='';
-  db.spellCatalog.forEach(sp=>{ if(sp.origine===undefined) sp.origine='Magia'; if(sp.tipoFunzionale===undefined) sp.tipoFunzionale='Incantesimo'; if(sp.consumabile===undefined) sp.consumabile=true; if(sp.unico===undefined) sp.unico=false; });
+  db.spellCatalog.forEach(sp=>{ if(sp.origine===undefined) sp.origine='Magia'; if(sp.tipoFunzionale===undefined) sp.tipoFunzionale='Incantesimo'; if(sp.consumabile===undefined) sp.consumabile=true; if(sp.unico===undefined) sp.unico=false; ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento','attaccoFisso','dannoCorpo'].forEach(k=>{ if(sp[k]===undefined || sp[k]==='') sp[k]=''; else sp[k]=num(sp[k]); }); if(sp.moltiplicatoreAttacco==='') sp.moltiplicatoreAttacco=1; if(sp.moltiplicatoreDifesa==='') sp.moltiplicatoreDifesa=1; if(sp.moltiplicatoreMovimento==='') sp.moltiplicatoreMovimento=1; if(sp.divisoreAttacco==='') sp.divisoreAttacco=1; if(sp.divisoreDifesa==='') sp.divisoreDifesa=1; if(sp.divisoreMovimento==='') sp.divisoreMovimento=1; if(sp.arrotondamento===undefined) sp.arrotondamento='difetto'; if(sp.ordineCalcolo===undefined) sp.ordineCalcolo='dopo_bonus'; });
   db.heroSpells.forEach(hs=>{ if(hs.usato===undefined) hs.usato=false; if(hs.attivo===undefined) hs.attivo=false; });
   db.allyCatalog.forEach(a=>{ ['attacco','difesa','corpoMax','menteMax','movimento','costoOro','costoReputazione'].forEach(k=>a[k]=num(a[k])); });
   db.heroAllies.forEach(ha=>{ if(ha.stato===undefined) ha.stato='Vivo'; if(ha.corpoAttuale===undefined){ const al=allyById(ha.allyId); ha.corpoAttuale=al?num(al.corpoMax):0; } if(ha.menteAttuale===undefined){ const al=allyById(ha.allyId); ha.menteAttuale=al?num(al.menteMax):0; } });
@@ -2515,6 +2549,22 @@ function clampHeroCurrentToEffectiveMax(heroId){
   if(num(h.menteAttuale)>c.menteMax){ h.menteAttuale=c.menteMax; changed=true; }
   return changed;
 }
+
+function roundDashboardValue(value, mode='difetto'){
+  const m=String(mode||'difetto').toLowerCase();
+  if(m.includes('eccesso') || m.includes('ceil') || m.includes('up')) return Math.ceil(value);
+  if(m.includes('norm') || m.includes('round')) return Math.round(value);
+  return Math.floor(value);
+}
+function applyMultiplierDivider(value, mult, div, roundMode){
+  let v=Number(value);
+  const m=Number(mult);
+  const d=Number(div);
+  if(Number.isFinite(m) && m && m!==1) v*=m;
+  if(Number.isFinite(d) && d && d!==1) v=roundDashboardValue(v/d, roundMode);
+  return Math.max(0,v);
+}
+
 function calcHero(hero){
   const inv = invForHero(hero.id);
   const active = inv.filter(isInventoryRowActiveForStats);
@@ -2524,15 +2574,15 @@ function calcHero(hero){
   const abilityEffects = activeAbilityEffectsForHero(hero.id);
   const attackParts=[]; let attack = weapon ? num(weapon.item.dadiAttacco) : num(hero.attaccoBase); attackParts.push(weapon ? `${weapon.item.nome} ${num(weapon.item.dadiAttacco)}D` : `Base ${num(hero.attaccoBase)}D`);
   active.forEach(x=>{ const b=num(x.item.bonusAttacco); if(b){ attack+=b; attackParts.push(`${x.item.nome} +${b}D`); } });
-  spellEffects.forEach(x=>{ const e=x.effect; if(e.attaccoFisso!==undefined && e.attaccoFisso!==null && e.attaccoFisso!==''){ attack=num(e.attaccoFisso); attackParts.push(`${x.row.spell.nome}: attacco ${attack}D [eff.]`); } const b=num(e.bonusAttacco); if(b){ attack+=b; attackParts.push(`${x.row.spell.nome} +${b}D [eff.]`); } const m=num(e.malusAttacco); if(m){ attack=Math.max(0,attack-m); attackParts.push(`${x.row.spell.nome} -${m}D [eff.]`); } if(e.bloccaAttacco){ attack=0; attackParts.push(`${x.row.spell.nome}: non può attaccare [eff.]`); } });
+  spellEffects.forEach(x=>{ const e=x.effect; if(e.attaccoFisso!==undefined && e.attaccoFisso!==null && e.attaccoFisso!==''){ attack=num(e.attaccoFisso); attackParts.push(`${x.row.spell.nome}: attacco ${attack}D [eff.]`); } const b=num(e.bonusAttacco); if(b){ attack+=b; attackParts.push(`${x.row.spell.nome} +${b}D [eff.]`); } const m=num(e.malusAttacco); if(m){ attack=Math.max(0,attack-m); attackParts.push(`${x.row.spell.nome} -${m}D [eff.]`); } const mult=num(e.moltiplicatoreAttacco); const div=num(e.divisoreAttacco); if((mult&&mult!==1)||(div&&div!==1)){ attack=applyMultiplierDivider(attack,mult,div,e.arrotondamento); if(mult&&mult!==1) attackParts.push(`${x.row.spell.nome} ×${mult}D [eff.]`); if(div&&div!==1) attackParts.push(`${x.row.spell.nome} ÷${div}D [eff.]`); } if(e.bloccaAttacco){ attack=0; attackParts.push(`${x.row.spell.nome}: non può attaccare [eff.]`); } });
   abilityEffects.forEach(x=>{ const e=x.effect; if(e.attaccoFisso!==''){ attack=e.attaccoFisso; attackParts.push(`${x.row.ability.nome}: attacco ${attack}D [abilità]`); } if(e.bonusAttacco){ attack+=e.bonusAttacco; attackParts.push(`${x.row.ability.nome} +${e.bonusAttacco}D [abilità]`); } if(e.malusAttacco){ attack=Math.max(0,attack-e.malusAttacco); attackParts.push(`${x.row.ability.nome} -${e.malusAttacco}D [abilità]`); } });
   const defenseParts=[]; let defense = num(hero.difesaBase); defenseParts.push('Base '+defense+'D');
   active.forEach(x=>{ const b=num(x.item.bonusDifesa); if(b){ defense+=b; defenseParts.push(`${x.item.nome} +${b}D${x.item.bonusSempreAttivo&&!x.equipaggiato?' [sempre]':''}`); } });
-  spellEffects.forEach(x=>{ const e=x.effect; if(e.difesaFissa!==undefined && e.difesaFissa!==null && e.difesaFissa!==''){ defense=num(e.difesaFissa); defenseParts.push(`${x.row.spell.nome}: difesa ${defense}D [eff.]`); } const b=num(e.bonusDifesa); if(b){ defense+=b; defenseParts.push(`${x.row.spell.nome} +${b}D [eff.]`); } const m=num(e.malusDifesa); if(m){ defense=Math.max(0,defense-m); defenseParts.push(`${x.row.spell.nome} -${m}D [eff.]`); } if(e.bloccaDifesa){ defense=0; defenseParts.push(`${x.row.spell.nome}: non può difendersi [eff.]`); } });
+  spellEffects.forEach(x=>{ const e=x.effect; if(e.difesaFissa!==undefined && e.difesaFissa!==null && e.difesaFissa!==''){ defense=num(e.difesaFissa); defenseParts.push(`${x.row.spell.nome}: difesa ${defense}D [eff.]`); } const b=num(e.bonusDifesa); if(b){ defense+=b; defenseParts.push(`${x.row.spell.nome} +${b}D [eff.]`); } const m=num(e.malusDifesa); if(m){ defense=Math.max(0,defense-m); defenseParts.push(`${x.row.spell.nome} -${m}D [eff.]`); } const mult=num(e.moltiplicatoreDifesa); const div=num(e.divisoreDifesa); if((mult&&mult!==1)||(div&&div!==1)){ defense=applyMultiplierDivider(defense,mult,div,e.arrotondamento); if(mult&&mult!==1) defenseParts.push(`${x.row.spell.nome} ×${mult}D [eff.]`); if(div&&div!==1) defenseParts.push(`${x.row.spell.nome} ÷${div}D [eff.]`); } if(e.bloccaDifesa){ defense=0; defenseParts.push(`${x.row.spell.nome}: non può difendersi [eff.]`); } });
   abilityEffects.forEach(x=>{ const e=x.effect; if(e.difesaFissa!==''){ defense=e.difesaFissa; defenseParts.push(`${x.row.ability.nome}: difesa ${defense}D [abilità]`); } if(e.bonusDifesa){ defense+=e.bonusDifesa; defenseParts.push(`${x.row.ability.nome} +${e.bonusDifesa}D [abilità]`); } if(e.malusDifesa){ defense=Math.max(0,defense-e.malusDifesa); defenseParts.push(`${x.row.ability.nome} -${e.malusDifesa}D [abilità]`); } });
   let movimento = num(hero.movimentoBase); const movementParts=[]; movementParts.push('Base '+movimento);
   active.forEach(x=>{ const m=num(x.item.bonusMovimento); const p=num(x.item.penalitaMovimento); if(m){ movimento+=m; movementParts.push(`${x.item.nome} ${m>0?'+':''}${m}`); } if(p){ movimento-=p; movementParts.push(`${x.item.nome} -${p}`); } });
-  spellEffects.forEach(x=>{ const e=x.effect; if(e.movimentoFisso!==undefined && e.movimentoFisso!==null && e.movimentoFisso!==''){ movimento=num(e.movimentoFisso); movementParts.push(`${x.row.spell.nome}: movimento ${movimento} [eff.]`); } const m=num(e.bonusMovimento); if(m){ movimento+=m; movementParts.push(`${x.row.spell.nome} ${m>0?'+':''}${m} [eff.]`); } const mm=num(e.malusMovimento); if(mm){ movimento=Math.max(0,movimento-mm); movementParts.push(`${x.row.spell.nome} -${mm} [eff.]`); } const mult=num(e.moltiplicatoreMovimento); if(mult && mult!==1){ movimento*=mult; movementParts.push(`${x.row.spell.nome} ×${mult} [eff.]`); } if(e.bloccaMovimento){ movimento=0; movementParts.push(`${x.row.spell.nome}: non può muoversi [eff.]`); } if(e.saltaTurno){ movementParts.push(`${x.row.spell.nome}: salta prossimo turno [eff.]`); } });
+  spellEffects.forEach(x=>{ const e=x.effect; if(e.movimentoFisso!==undefined && e.movimentoFisso!==null && e.movimentoFisso!==''){ movimento=num(e.movimentoFisso); movementParts.push(`${x.row.spell.nome}: movimento ${movimento} [eff.]`); } const m=num(e.bonusMovimento); if(m){ movimento+=m; movementParts.push(`${x.row.spell.nome} ${m>0?'+':''}${m} [eff.]`); } const mm=num(e.malusMovimento); if(mm){ movimento=Math.max(0,movimento-mm); movementParts.push(`${x.row.spell.nome} -${mm} [eff.]`); } const mult=num(e.moltiplicatoreMovimento); const div=num(e.divisoreMovimento); if((mult&&mult!==1)||(div&&div!==1)){ movimento=applyMultiplierDivider(movimento,mult,div,e.arrotondamento); if(mult&&mult!==1) movementParts.push(`${x.row.spell.nome} ×${mult} [eff.]`); if(div&&div!==1) movementParts.push(`${x.row.spell.nome} ÷${div} [eff.]`); } if(e.bloccaMovimento){ movimento=0; movementParts.push(`${x.row.spell.nome}: non può muoversi [eff.]`); } if(e.saltaTurno){ movementParts.push(`${x.row.spell.nome}: salta prossimo turno [eff.]`); } });
   abilityEffects.forEach(x=>{ const e=x.effect; if(e.movimentoFisso!==''){ movimento=e.movimentoFisso; movementParts.push(`${x.row.ability.nome}: movimento ${movimento} [abilità]`); } if(e.bonusMovimento){ movimento+=e.bonusMovimento; movementParts.push(`${x.row.ability.nome} +${e.bonusMovimento} [abilità]`); } if(e.malusMovimento){ movimento=Math.max(0,movimento-e.malusMovimento); movementParts.push(`${x.row.ability.nome} -${e.malusMovimento} [abilità]`); } });
   attack=Math.max(0,attack); defense=Math.max(0,defense); movimento=Math.max(0,movimento);
   let corpoMax = num(hero.corpoMax), menteMax = num(hero.menteMax);
@@ -2657,6 +2707,14 @@ function ensureManualCatalogDialogs(){
     <div><label>Malus attacco</label><input id="spell_malusAttacco" type="number" step="1"></div>
     <div><label>Malus difesa</label><input id="spell_malusDifesa" type="number" step="1"></div>
     <div><label>Malus movimento</label><input id="spell_malusMovimento" type="number" step="1"></div>
+    <div><label>Moltiplicatore attacco</label><input id="spell_moltiplicatoreAttacco" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Moltiplicatore difesa</label><input id="spell_moltiplicatoreDifesa" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Moltiplicatore movimento</label><input id="spell_moltiplicatoreMovimento" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Divisore attacco</label><input id="spell_divisoreAttacco" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Divisore difesa</label><input id="spell_divisoreDifesa" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Divisore movimento</label><input id="spell_divisoreMovimento" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Arrotondamento divisori</label><select id="spell_arrotondamento"><option value="difetto">Difetto</option><option value="eccesso">Eccesso</option><option value="normale">Normale</option></select></div>
+    <div><label>Ordine calcolo</label><select id="spell_ordineCalcolo"><option value="dopo_bonus">Dopo bonus/malus</option><option value="manuale">Manuale/da verificare</option></select></div>
     <div><label>Attacco fisso</label><input id="spell_attaccoFisso" type="number" step="1" placeholder="Es. Paura = 1"></div>
     <div><label>Danno Corpo</label><input id="spell_dannoCorpo" type="number" step="1"></div>
     <div><label>Blocca movimento</label><select id="spell_bloccaMovimento"><option value="false">No</option><option value="true">Sì</option></select></div>
@@ -2775,7 +2833,7 @@ function saveSpellManualDialog(){
   if(!String(obj.id||'').trim()) obj.id=makeSpellId(obj); obj.id=slugify(obj.id)||uid('spell');
   if(db.spellCatalog.some(x=>x.id===obj.id && x.id!==oldId)){ alert('Esiste già un incantesimo con questo ID.'); return; }
   obj.origine=obj.origine||'Magia'; obj.tipoFunzionale=obj.tipoFunzionale||'Incantesimo'; obj.categoria=obj.categoria||'Incantesimo';
-  ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','attaccoFisso','dannoCorpo'].forEach(k=>obj[k]=optionalNum(obj[k]));
+  ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento','attaccoFisso','dannoCorpo'].forEach(k=>obj[k]=optionalNum(obj[k]));
   ['bloccaMovimento','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile','consumabile','unico'].forEach(k=>obj[k]=bool(obj[k]));
   const idx=db.spellCatalog.findIndex(x=>x.id===oldId);
   if(idx>=0){ db.spellCatalog[idx]=obj; updateReferencesAfterIdChange('heroSpells',oldId,obj.id,'spellId'); }
@@ -2962,9 +3020,9 @@ function cleanManualCatalogDialogs(){
   ensureManualCatalogDialogs();
   const spellBonusSection=document.getElementById('spell_bonusAttacco')?.closest('.form-section');
   replaceModifierGrid(spellBonusSection,[
-    {title:'Attacco', help:'Bonus/malus o valore fisso dei dadi attacco.', ids:['spell_bonusAttacco','spell_malusAttacco','spell_attaccoFisso','spell_bloccaAttacco']},
-    {title:'Difesa', help:'Modifiche ai dadi difesa o blocco difesa.', ids:['spell_bonusDifesa','spell_malusDifesa','spell_bloccaDifesa']},
-    {title:'Movimento', help:'Modifiche al movimento, blocco o salto turno.', ids:['spell_bonusMovimento','spell_malusMovimento','spell_bloccaMovimento','spell_saltaTurno']},
+    {title:'Attacco', help:'Bonus/malus o valore fisso dei dadi attacco.', ids:['spell_bonusAttacco','spell_malusAttacco','spell_moltiplicatoreAttacco','spell_divisoreAttacco','spell_attaccoFisso','spell_bloccaAttacco']},
+    {title:'Difesa', help:'Modifiche ai dadi difesa o blocco difesa.', ids:['spell_bonusDifesa','spell_malusDifesa','spell_moltiplicatoreDifesa','spell_divisoreDifesa','spell_bloccaDifesa']},
+    {title:'Movimento', help:'Modifiche al movimento, blocco o salto turno.', ids:['spell_bonusMovimento','spell_malusMovimento','spell_moltiplicatoreMovimento','spell_divisoreMovimento','spell_bloccaMovimento','spell_saltaTurno','spell_arrotondamento','spell_ordineCalcolo']},
     {title:'Uso', help:'Comportamento generale dell’effetto.', ids:['spell_dannoCorpo','spell_attivoApplicabile','spell_consumabile','spell_unico']}
   ]);
   const abilityBonusSection=document.getElementById('ability_bonusAttacco')?.closest('.form-section');

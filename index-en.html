@@ -517,7 +517,7 @@ The project does not include protected official material, card/manual text, imag
         <details class="columns-box">
           <summary>Supported item catalog columns</summary>
           <div class="columns-actions"><button class="small" onclick="copyColumns('catalogColsText')">Copy columns</button><span class="muted">You can also select the text below.</span></div>
-          <textarea id="catalogColsText" class="columns-text" readonly>nome,tipoFunzionale,origin,categoriaVisiva,slot,sottotipo,dadiAttacco,bonusAttacco,bonusDifesa,bonusMovement,penalitaMovement,bonusBodyMax,bonusMindMax,maniRichieste,equipaggiabile,consumabile,unico,bonusSempreAttivo,attaccoDiagonale,attaccoRanged,utilizzabileDa,costo,espansione,edizione,effettoContro,compatibilitaRestrizioni,testoRapido,noteRegola,immagine</textarea>
+          <textarea id="catalogColsText" class="columns-text" readonly>nome,tipoFunzionale,origine,categoriaVisiva,slot,sottotipo,dadiAttacco,bonusAttacco,bonusDifesa,bonusMovimento,penalitaMovimento,bonusCorpoMax,bonusMenteMax,maniRichieste,equipaggiabile,consumabile,unico,bonusSempreAttivo,attaccoDiagonale,attaccoDistanza,utilizzabileDa,costo,espansione,edizione,effettoContro,compatibilitaRestrizioni,testoRapido,noteRegola,immagine</textarea>
         </details>
       </div>
       <div class="panel">
@@ -559,7 +559,7 @@ The project does not include protected official material, card/manual text, imag
     <div class="form-grid">
       <div><label>Name</label><input id="item_nome" placeholder="Es. Lama del sole basso"></div>
       <div><label>Functional type</label><select id="item_tipoFunzionale" onchange="updateItemFormHints()"></select><div class="help">What the item does: weapon, armor, ring, potion...</div></div>
-      <div><label>Origin</label><select id="item_origin"></select><div class="help">Where it comes from: equipment, artifact, treasure...</div></div>
+      <div><label>Origin</label><select id="item_origine"></select><div class="help">Where it comes from: equipment, artifact, treasure...</div></div>
       <div><label>Visual group</label><input id="item_categoriaVisiva" placeholder="Weapons / Artefatti"><div class="help">Only used to group it visually.</div></div>
       <div><label>Expansion</label><input id="item_espansione" placeholder="Public demo"></div>
       <div><label>Edition</label><input id="item_edizione" placeholder="Edition personale / Demo / Homebrew"></div>
@@ -587,10 +587,10 @@ The project does not include protected official material, card/manual text, imag
       <div><label>Attack dice</label><input id="item_dadiAttacco" type="number" step="1"><div class="help">Raw weapon value. Example: Wanderer Staff = 2.</div></div>
       <div><label>Attack bonus</label><input id="item_bonusAttacco" type="number" step="1"><div class="help">Only permanent additional bonus, not the weapon value.</div></div>
       <div><label>Defense bonus</label><input id="item_bonusDifesa" type="number" step="1"><div class="help">Es. Corazza del sentiero = 2.</div></div>
-      <div><label>Movement bonus</label><input id="item_bonusMovement" type="number" step="1"></div>
-      <div><label>Movement penalty</label><input id="item_penalitaMovement" type="number" step="1"><div class="help">Enter a positive value: 1 means -1 movement.</div></div>
-      <div><label>Max Body bonus</label><input id="item_bonusBodyMax" type="number" step="1"><div class="help">Es. Ring del vigore = 1.</div></div>
-      <div><label>Max Mind bonus</label><input id="item_bonusMindMax" type="number" step="1"></div>
+      <div><label>Movement bonus</label><input id="item_bonusMovimento" type="number" step="1"></div>
+      <div><label>Movement penalty</label><input id="item_penalitaMovimento" type="number" step="1"><div class="help">Enter a positive value: 1 means -1 movement.</div></div>
+      <div><label>Max Body bonus</label><input id="item_bonusCorpoMax" type="number" step="1"><div class="help">Es. Ring del vigore = 1.</div></div>
+      <div><label>Max Mind bonus</label><input id="item_bonusMenteMax" type="number" step="1"></div>
     </div>
   </div>
 
@@ -599,7 +599,7 @@ The project does not include protected official material, card/manual text, imag
     <div class="form-grid">
       <div><label>Subtype</label><input id="item_sottotipo" placeholder="Melee, ranged, healing..."></div>
       <div><label>Diagonal attack</label><select id="item_attaccoDiagonale"><option value="false">No</option><option value="true">Yes</option><option value="speciale">Special</option></select></div>
-      <div><label>Ranged attack</label><select id="item_attaccoRanged"><option value="false">No</option><option value="true">Yes</option><option value="speciale">Special</option></select></div>
+      <div><label>Ranged attack</label><select id="item_attaccoDistanza"><option value="false">No</option><option value="true">Yes</option><option value="speciale">Special</option></select></div>
       <div><label>Effect against</label><input id="item_effettoContro" placeholder="Es. Constructs: +1D attacco"></div>
       <div style="grid-column:1/-1"><label>Equipment compatibility / restrictions</label><input id="item_compatibilitaRestrizioni" placeholder="Es. compatibile con elmo e scudo; no Mystic; non con scudo..."></div>
     </div>
@@ -833,24 +833,24 @@ function defaultDB(){
       "id": "item_lama_bronzo",
       "nome": "Lama di bronzo",
       "tipoFunzionale": "Weapon",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "categoriaVisiva": "Weapons",
       "slot": "Main hand",
       "sottotipo": "Melee",
       "dadiAttacco": 2,
       "bonusAttacco": 0,
       "bonusDifesa": 0,
-      "bonusMovement": 0,
-      "penalitaMovement": 0,
-      "bonusBodyMax": 0,
-      "bonusMindMax": 0,
+      "bonusMovimento": 0,
+      "penalitaMovimento": 0,
+      "bonusCorpoMax": 0,
+      "bonusMenteMax": 0,
       "maniRichieste": 1,
       "equipaggiabile": true,
       "consumabile": false,
       "unico": false,
       "bonusSempreAttivo": false,
       "attaccoDiagonale": false,
-      "attaccoRanged": false,
+      "attaccoDistanza": false,
       "utilizzabileDa": "Tutti",
       "costo": 90,
       "espansione": "Public demo",
@@ -865,24 +865,24 @@ function defaultDB(){
       "id": "item_martello_runico",
       "nome": "Martello runico",
       "tipoFunzionale": "Weapon",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "categoriaVisiva": "Weapons",
       "slot": "Two hands",
       "sottotipo": "Melee",
       "dadiAttacco": 3,
       "bonusAttacco": 0,
       "bonusDifesa": 0,
-      "bonusMovement": 0,
-      "penalitaMovement": 0,
-      "bonusBodyMax": 0,
-      "bonusMindMax": 0,
+      "bonusMovimento": 0,
+      "penalitaMovimento": 0,
+      "bonusCorpoMax": 0,
+      "bonusMenteMax": 0,
       "maniRichieste": 2,
       "equipaggiabile": true,
       "consumabile": false,
       "unico": false,
       "bonusSempreAttivo": false,
       "attaccoDiagonale": false,
-      "attaccoRanged": false,
+      "attaccoDistanza": false,
       "utilizzabileDa": "Guardian,Cartographer",
       "costo": 210,
       "espansione": "Public demo",
@@ -897,24 +897,24 @@ function defaultDB(){
       "id": "item_arco_caccia",
       "nome": "Arco da caccia",
       "tipoFunzionale": "Weapon",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "categoriaVisiva": "Weapons",
       "slot": "Two hands",
       "sottotipo": "Ranged",
       "dadiAttacco": 2,
       "bonusAttacco": 0,
       "bonusDifesa": 0,
-      "bonusMovement": 0,
-      "penalitaMovement": 0,
-      "bonusBodyMax": 0,
-      "bonusMindMax": 0,
+      "bonusMovimento": 0,
+      "penalitaMovimento": 0,
+      "bonusCorpoMax": 0,
+      "bonusMenteMax": 0,
       "maniRichieste": 2,
       "equipaggiabile": true,
       "consumabile": false,
       "unico": false,
       "bonusSempreAttivo": false,
       "attaccoDiagonale": false,
-      "attaccoRanged": true,
+      "attaccoDistanza": true,
       "utilizzabileDa": "Cartographer,Poacher",
       "costo": 160,
       "espansione": "Public demo",
@@ -929,24 +929,24 @@ function defaultDB(){
       "id": "item_corazza_cuoio",
       "nome": "Corazza di cuoio borchiato",
       "tipoFunzionale": "Weapontura",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "categoriaVisiva": "Defenses",
       "slot": "Body",
       "sottotipo": "Weapontura leggera",
       "dadiAttacco": 0,
       "bonusAttacco": 0,
       "bonusDifesa": 1,
-      "bonusMovement": 0,
-      "penalitaMovement": 0,
-      "bonusBodyMax": 0,
-      "bonusMindMax": 0,
+      "bonusMovimento": 0,
+      "penalitaMovimento": 0,
+      "bonusCorpoMax": 0,
+      "bonusMenteMax": 0,
       "maniRichieste": 0,
       "equipaggiabile": true,
       "consumabile": false,
       "unico": false,
       "bonusSempreAttivo": false,
       "attaccoDiagonale": false,
-      "attaccoRanged": false,
+      "attaccoDistanza": false,
       "utilizzabileDa": "Tutti",
       "costo": 140,
       "espansione": "Public demo",
@@ -961,24 +961,24 @@ function defaultDB(){
       "id": "item_scudo_tondo",
       "nome": "Shield tondo",
       "tipoFunzionale": "Shield",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "categoriaVisiva": "Defenses",
       "slot": "Off hand",
       "sottotipo": "Shield",
       "dadiAttacco": 0,
       "bonusAttacco": 0,
       "bonusDifesa": 1,
-      "bonusMovement": 0,
-      "penalitaMovement": 0,
-      "bonusBodyMax": 0,
-      "bonusMindMax": 0,
+      "bonusMovimento": 0,
+      "penalitaMovimento": 0,
+      "bonusCorpoMax": 0,
+      "bonusMenteMax": 0,
       "maniRichieste": 1,
       "equipaggiabile": true,
       "consumabile": false,
       "unico": false,
       "bonusSempreAttivo": false,
       "attaccoDiagonale": false,
-      "attaccoRanged": false,
+      "attaccoDistanza": false,
       "utilizzabileDa": "Guardian,Cartographer,Poacher",
       "costo": 110,
       "espansione": "Public demo",
@@ -993,24 +993,24 @@ function defaultDB(){
       "id": "item_mantello_vento",
       "nome": "Cloak del vento basso",
       "tipoFunzionale": "Cloak",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "categoriaVisiva": "Items speciali",
       "slot": "Accessory",
       "sottotipo": "Movement",
       "dadiAttacco": 0,
       "bonusAttacco": 0,
       "bonusDifesa": 0,
-      "bonusMovement": 1,
-      "penalitaMovement": 0,
-      "bonusBodyMax": 0,
-      "bonusMindMax": 0,
+      "bonusMovimento": 1,
+      "penalitaMovimento": 0,
+      "bonusCorpoMax": 0,
+      "bonusMenteMax": 0,
       "maniRichieste": 0,
       "equipaggiabile": true,
       "consumabile": false,
       "unico": false,
       "bonusSempreAttivo": false,
       "attaccoDiagonale": false,
-      "attaccoRanged": false,
+      "attaccoDistanza": false,
       "utilizzabileDa": "Tutti",
       "costo": 180,
       "espansione": "Public demo",
@@ -1025,24 +1025,24 @@ function defaultDB(){
       "id": "item_anello_vigore",
       "nome": "Ring del vigore tenue",
       "tipoFunzionale": "Ring",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "categoriaVisiva": "Items speciali",
       "slot": "Ring 1",
       "sottotipo": "Resistenza",
       "dadiAttacco": 0,
       "bonusAttacco": 0,
       "bonusDifesa": 0,
-      "bonusMovement": 0,
-      "penalitaMovement": 0,
-      "bonusBodyMax": 1,
-      "bonusMindMax": 0,
+      "bonusMovimento": 0,
+      "penalitaMovimento": 0,
+      "bonusCorpoMax": 1,
+      "bonusMenteMax": 0,
       "maniRichieste": 0,
       "equipaggiabile": true,
       "consumabile": false,
       "unico": true,
       "bonusSempreAttivo": false,
       "attaccoDiagonale": false,
-      "attaccoRanged": false,
+      "attaccoDistanza": false,
       "utilizzabileDa": "Tutti",
       "costo": 250,
       "espansione": "Public demo",
@@ -1057,24 +1057,24 @@ function defaultDB(){
       "id": "item_amuleto_lanterna",
       "nome": "Amulet della lanterna quieta",
       "tipoFunzionale": "Amulet",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "categoriaVisiva": "Items speciali",
       "slot": "Amulet",
       "sottotipo": "Mind",
       "dadiAttacco": 0,
       "bonusAttacco": 0,
       "bonusDifesa": 0,
-      "bonusMovement": 0,
-      "penalitaMovement": 0,
-      "bonusBodyMax": 0,
-      "bonusMindMax": 1,
+      "bonusMovimento": 0,
+      "penalitaMovimento": 0,
+      "bonusCorpoMax": 0,
+      "bonusMenteMax": 1,
       "maniRichieste": 0,
       "equipaggiabile": true,
       "consumabile": false,
       "unico": true,
       "bonusSempreAttivo": false,
       "attaccoDiagonale": false,
-      "attaccoRanged": false,
+      "attaccoDistanza": false,
       "utilizzabileDa": "Mystic,Cartographer",
       "costo": 260,
       "espansione": "Public demo",
@@ -1089,24 +1089,24 @@ function defaultDB(){
       "id": "item_pozione_rugiada",
       "nome": "Potion di rugiada rossa",
       "tipoFunzionale": "Potion",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "categoriaVisiva": "Consumables",
       "slot": "Consumable",
       "sottotipo": "Healing",
       "dadiAttacco": 0,
       "bonusAttacco": 0,
       "bonusDifesa": 0,
-      "bonusMovement": 0,
-      "penalitaMovement": 0,
-      "bonusBodyMax": 0,
-      "bonusMindMax": 0,
+      "bonusMovimento": 0,
+      "penalitaMovimento": 0,
+      "bonusCorpoMax": 0,
+      "bonusMenteMax": 0,
       "maniRichieste": 0,
       "equipaggiabile": false,
       "consumabile": true,
       "unico": false,
       "bonusSempreAttivo": false,
       "attaccoDiagonale": false,
-      "attaccoRanged": false,
+      "attaccoDistanza": false,
       "utilizzabileDa": "Tutti",
       "costo": 60,
       "espansione": "Public demo",
@@ -1125,7 +1125,7 @@ function defaultDB(){
       "itemId": "item_lama_bronzo",
       "quantita": 1,
       "equipaggiato": true,
-      "slotUseto": "Main hand",
+      "slotUsato": "Main hand",
       "stato": "Owned",
       "usiRimasti": "",
       "note": ""
@@ -1136,7 +1136,7 @@ function defaultDB(){
       "itemId": "item_scudo_tondo",
       "quantita": 1,
       "equipaggiato": true,
-      "slotUseto": "Off hand",
+      "slotUsato": "Off hand",
       "stato": "Owned",
       "usiRimasti": "",
       "note": ""
@@ -1147,7 +1147,7 @@ function defaultDB(){
       "itemId": "item_corazza_cuoio",
       "quantita": 1,
       "equipaggiato": true,
-      "slotUseto": "Body",
+      "slotUsato": "Body",
       "stato": "Owned",
       "usiRimasti": "",
       "note": ""
@@ -1158,7 +1158,7 @@ function defaultDB(){
       "itemId": "item_martello_runico",
       "quantita": 1,
       "equipaggiato": true,
-      "slotUseto": "Two hands",
+      "slotUsato": "Two hands",
       "stato": "Owned",
       "usiRimasti": "",
       "note": ""
@@ -1169,7 +1169,7 @@ function defaultDB(){
       "itemId": "item_pozione_rugiada",
       "quantita": 2,
       "equipaggiato": false,
-      "slotUseto": "",
+      "slotUsato": "",
       "stato": "Owned",
       "usiRimasti": "",
       "note": ""
@@ -1180,7 +1180,7 @@ function defaultDB(){
       "itemId": "item_amuleto_lanterna",
       "quantita": 1,
       "equipaggiato": true,
-      "slotUseto": "Amulet",
+      "slotUsato": "Amulet",
       "stato": "Owned",
       "usiRimasti": "",
       "note": ""
@@ -1191,7 +1191,7 @@ function defaultDB(){
       "itemId": "item_arco_caccia",
       "quantita": 1,
       "equipaggiato": true,
-      "slotUseto": "Two hands",
+      "slotUsato": "Two hands",
       "stato": "Owned",
       "usiRimasti": "",
       "note": ""
@@ -1202,7 +1202,7 @@ function defaultDB(){
       "itemId": "item_mantello_vento",
       "quantita": 1,
       "equipaggiato": true,
-      "slotUseto": "Accessory",
+      "slotUsato": "Accessory",
       "stato": "Owned",
       "usiRimasti": "",
       "note": ""
@@ -1214,7 +1214,7 @@ function defaultDB(){
       "nome": "Fiamma breve",
       "categoria": "Effetto temporaneo",
       "setMagia": "Public demo",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "tipoFunzionale": "Incantesimo",
       "lanciatoDa": "Mystic",
       "bersaglio": "Alleato o sé stesso",
@@ -1225,17 +1225,17 @@ function defaultDB(){
       "unico": false,
       "bonusAttacco": 1,
       "bonusDifesa": 0,
-      "bonusMovement": 0,
+      "bonusMovimento": 0,
       "malusAttacco": 0,
       "malusDifesa": 0,
-      "malusMovement": 0,
+      "malusMovimento": 0,
       "attaccoFisso": "",
-      "bloccaMovement": false,
+      "bloccaMovimento": false,
       "bloccaAttacco": false,
       "bloccaDifesa": false,
       "saltaTurno": false,
       "attivoApplicabile": true,
-      "dannoBody": 0,
+      "dannoCorpo": 0,
       "effettoDashboard": "+1D Attacco",
       "testoRapido": "+1D Attacco temporaneo",
       "noteRegola": "Incantesimo inventato per dimostrazione.",
@@ -1248,7 +1248,7 @@ function defaultDB(){
       "nome": "Passo lieve",
       "categoria": "Effetto temporaneo",
       "setMagia": "Public demo",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "tipoFunzionale": "Incantesimo",
       "lanciatoDa": "Mystic",
       "bersaglio": "Un personaggio",
@@ -1259,17 +1259,17 @@ function defaultDB(){
       "unico": false,
       "bonusAttacco": 0,
       "bonusDifesa": 0,
-      "bonusMovement": 2,
+      "bonusMovimento": 2,
       "malusAttacco": 0,
       "malusDifesa": 0,
-      "malusMovement": 0,
+      "malusMovimento": 0,
       "attaccoFisso": "",
-      "bloccaMovement": false,
+      "bloccaMovimento": false,
       "bloccaAttacco": false,
       "bloccaDifesa": false,
       "saltaTurno": false,
       "attivoApplicabile": true,
-      "dannoBody": 0,
+      "dannoCorpo": 0,
       "effettoDashboard": "+2 Movement",
       "testoRapido": "+2 Movement per un turno",
       "noteRegola": "Incantesimo inventato per dimostrazione.",
@@ -1293,13 +1293,13 @@ function defaultDB(){
       "id": "ally_corvo",
       "nome": "Corvo esploratore",
       "tipoAlleato": "Animale",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "attacco": 1,
       "difesa": 1,
       "corpoMax": 1,
       "menteMax": 1,
       "movimento": 3,
-      "costoGold": 0,
+      "costoOro": 0,
       "costoReputazione": 0,
       "reclutabileDa": "Poacher,Mystic",
       "espansione": "Public demo",
@@ -1312,13 +1312,13 @@ function defaultDB(){
       "id": "ally_lanciere",
       "nome": "Lanciere di confine",
       "tipoAlleato": "Mercenario",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "attacco": 2,
       "difesa": 2,
       "corpoMax": 2,
       "menteMax": 1,
       "movimento": 2,
-      "costoGold": 75,
+      "costoOro": 75,
       "costoReputazione": 0,
       "reclutabileDa": "Tutti",
       "espansione": "Public demo",
@@ -1345,16 +1345,16 @@ function defaultDB(){
       "nome": "Colpo prudente",
       "categoria": "Tecnica",
       "classe": "Guardian,Cartographer",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "tipoUso": "Attiva",
       "usiPerImpresa": 1,
       "attivoApplicabile": true,
       "bonusAttacco": 1,
       "bonusDifesa": 0,
-      "bonusMovement": 0,
+      "bonusMovimento": 0,
       "malusAttacco": 0,
       "malusDifesa": 0,
-      "malusMovement": 0,
+      "malusMovimento": 0,
       "attaccoFisso": "",
       "difesaFissa": "",
       "movimentoFisso": "",
@@ -1369,16 +1369,16 @@ function defaultDB(){
       "nome": "Shield alzato",
       "categoria": "Tecnica",
       "classe": "Guardian",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "tipoUso": "Attiva",
       "usiPerImpresa": 1,
       "attivoApplicabile": true,
       "bonusAttacco": 0,
       "bonusDifesa": 1,
-      "bonusMovement": 0,
+      "bonusMovimento": 0,
       "malusAttacco": 0,
       "malusDifesa": 0,
-      "malusMovement": 0,
+      "malusMovimento": 0,
       "attaccoFisso": "",
       "difesaFissa": "",
       "movimentoFisso": "",
@@ -1393,16 +1393,16 @@ function defaultDB(){
       "nome": "Scatto laterale",
       "categoria": "Movement",
       "classe": "Poacher",
-      "origin": "Homebrew",
+      "origine": "Homebrew",
       "tipoUso": "Attiva",
       "usiPerImpresa": 1,
       "attivoApplicabile": true,
       "bonusAttacco": 0,
       "bonusDifesa": 0,
-      "bonusMovement": 1,
+      "bonusMovimento": 1,
       "malusAttacco": 0,
       "malusDifesa": 0,
-      "malusMovement": 0,
+      "malusMovimento": 0,
       "attaccoFisso": "",
       "difesaFissa": "",
       "movimentoFisso": "",
@@ -1455,7 +1455,7 @@ function renderSelectOptions(){
   const currentOrigin=document.getElementById('filterOrigin')?.value || '';
   const currentAssign=document.getElementById('assignType')?.value || '';
   const catalogTypes=[...new Set([...TYPES, ...(db?.itemCatalog||[]).map(it=>it.tipoFunzionale).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,'it'));
-  const catalogOrigins=[...new Set([...ORIGINS, ...(db?.itemCatalog||[]).map(it=>it.origin).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,'it'));
+  const catalogOrigins=[...new Set([...ORIGINS, ...(db?.itemCatalog||[]).map(it=>it.origine).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,'it'));
   fillSelect('filterType', [''].concat(catalogTypes), ['Functional type: all'].concat(catalogTypes));
   fillSelect('filterOrigin', [''].concat(catalogOrigins), ['Origin: all'].concat(catalogOrigins));
   fillSelect('assignType', [''].concat(catalogTypes), ['Tutti'].concat(catalogTypes));
@@ -1463,7 +1463,7 @@ function renderSelectOptions(){
   if(document.getElementById('filterOrigin')) document.getElementById('filterOrigin').value=currentOrigin;
   if(document.getElementById('assignType')) document.getElementById('assignType').value=currentAssign;
   ['item_tipoFunzionale'].forEach(id=>fillSelect(id,TYPES,TYPES));
-  ['item_origin'].forEach(id=>fillSelect(id,ORIGINS,ORIGINS));
+  ['item_origine'].forEach(id=>fillSelect(id,ORIGINS,ORIGINS));
   ['item_slot'].forEach(id=>fillSelect(id,SLOTS,SLOTS));
 }
 function fillSelect(id, values, labels, fallback){ const el=document.getElementById(id); if(!el) return; const cur=el.value; el.innerHTML=''; values.forEach((v,i)=>{ const o=document.createElement('option'); o.value=v; o.textContent=labels[i]??v; el.appendChild(o); }); if([...el.options].some(o=>o.value===cur)) el.value=cur; }
@@ -1530,7 +1530,7 @@ function specialTextForItem(it){
   if(it.effettoContro && !parts.join(' ').includes(it.effettoContro)) parts.push(it.effettoContro);
   if(it.compatibilitaRestrizioni) parts.push(it.compatibilitaRestrizioni);
   if(it.attaccoDiagonale&&String(it.attaccoDiagonale)!=='false') parts.push('attacco diagonale');
-  if(it.attaccoRanged&&String(it.attaccoRanged)!=='false') parts.push('attacco a distanza');
+  if(it.attaccoDistanza&&String(it.attaccoDistanza)!=='false') parts.push('attacco a distanza');
   return parts.filter(Boolean).join(' — ');
 }
 
@@ -1628,7 +1628,7 @@ function renderHeroInventorySections(hero, inv){
   const isDefense = x => ['Weapontura','Shield','Helmet','Cloak'].includes(x.item.tipoFunzionale) || num(x.item.bonusDifesa)>0;
   const isConsumable = x => x.item.consumabile || ['Potion','Scroll'].includes(x.item.tipoFunzionale) || x.item.slot==='Consumable';
   const isPermanentSpecial = x => !isWeapon(x) && !isDefense(x) && !isConsumable(x) && (
-    x.item.origin==='Artifact' ||
+    x.item.origine==='Artifact' ||
     ['Ring','Amulet','Item magico','Item quest','Item speciale','Accessory','Other'].includes(x.item.tipoFunzionale) ||
     ['Ring 1','Ring 2','Amulet','Accessory','Special','Not equippable'].includes(x.item.slot)
   );
@@ -1646,34 +1646,34 @@ function rawValueForItem(it){
   const vals=[];
   if(num(it.bonusDifesa)) vals.push('+'+num(it.bonusDifesa)+'D dif');
   if(num(it.bonusAttacco)) vals.push('+'+num(it.bonusAttacco)+' att');
-  if(num(it.bonusMovement)) vals.push((num(it.bonusMovement)>0?'+':'')+num(it.bonusMovement)+' mov');
-  if(num(it.penalitaMovement)) vals.push('-'+num(it.penalitaMovement)+' mov');
-  if(num(it.bonusBodyMax)) vals.push((num(it.bonusBodyMax)>0?'+':'')+num(it.bonusBodyMax)+' Body');
-  if(num(it.bonusMindMax)) vals.push((num(it.bonusMindMax)>0?'+':'')+num(it.bonusMindMax)+' Mind');
+  if(num(it.bonusMovimento)) vals.push((num(it.bonusMovimento)>0?'+':'')+num(it.bonusMovimento)+' mov');
+  if(num(it.penalitaMovimento)) vals.push('-'+num(it.penalitaMovimento)+' mov');
+  if(num(it.bonusCorpoMax)) vals.push((num(it.bonusCorpoMax)>0?'+':'')+num(it.bonusCorpoMax)+' Body');
+  if(num(it.bonusMenteMax)) vals.push((num(it.bonusMenteMax)>0?'+':'')+num(it.bonusMenteMax)+' Mind');
   return vals.join(', ')||'—';
 }
 function calcValueForItem(it){
   if(it.tipoFunzionale==='Weapon') return (num(it.dadiAttacco)+num(it.bonusAttacco))+'D att';
   const vals=[];
   if(num(it.bonusDifesa)) vals.push('+'+num(it.bonusDifesa)+'D dif');
-  if(num(it.bonusMovement)) vals.push((num(it.bonusMovement)>0?'+':'')+num(it.bonusMovement)+' mov');
-  if(num(it.penalitaMovement)) vals.push('-'+num(it.penalitaMovement)+' mov');
-  if(num(it.bonusBodyMax)) vals.push('+'+num(it.bonusBodyMax)+' Body');
-  if(num(it.bonusMindMax)) vals.push('+'+num(it.bonusMindMax)+' Mind');
+  if(num(it.bonusMovimento)) vals.push((num(it.bonusMovimento)>0?'+':'')+num(it.bonusMovimento)+' mov');
+  if(num(it.penalitaMovimento)) vals.push('-'+num(it.penalitaMovimento)+' mov');
+  if(num(it.bonusCorpoMax)) vals.push('+'+num(it.bonusCorpoMax)+' Body');
+  if(num(it.bonusMenteMax)) vals.push('+'+num(it.bonusMenteMax)+' Mind');
   return vals.join(', ')||'—';
 }
 function renderInvRow(x){
   const it=x.item; const meta = metaForItem(it);
   const props=[];
   if(it.attaccoDiagonale&&String(it.attaccoDiagonale)!=='false') props.push('diagonale');
-  if(it.attaccoRanged&&String(it.attaccoRanged)!=='false') props.push('distanza');
+  if(it.attaccoDistanza&&String(it.attaccoDistanza)!=='false') props.push('distanza');
   if(it.bonusSempreAttivo) props.push('sempre attivo');
 
   const baseBadge = `<span class="mini-badge raw fixed-badge">BASE ${escapeHtml(rawValueForItem(it))}</span>`;
   const calcBadge = `<span class="mini-badge calc fixed-badge">CALC ${escapeHtml(calcValueForItem(it))}</span>`;
   const maxBonusBadges = [
-    num(it.bonusBodyMax) ? `<span class="mini-badge max-bonus-badge">${num(it.bonusBodyMax)>0?'+':''}${num(it.bonusBodyMax)} Max Body</span>` : '',
-    num(it.bonusMindMax) ? `<span class="mini-badge max-bonus-badge">${num(it.bonusMindMax)>0?'+':''}${num(it.bonusMindMax)} Max Mind</span>` : ''
+    num(it.bonusCorpoMax) ? `<span class="mini-badge max-bonus-badge">${num(it.bonusCorpoMax)>0?'+':''}${num(it.bonusCorpoMax)} Max Body</span>` : '',
+    num(it.bonusMenteMax) ? `<span class="mini-badge max-bonus-badge">${num(it.bonusMenteMax)>0?'+':''}${num(it.bonusMenteMax)} Max Mind</span>` : ''
   ].join('');
 
   // V11: in compatto mostriamo una sola informazione prioritaria, senza ripetere tutti i dati tecnici.
@@ -1685,7 +1685,7 @@ function renderInvRow(x){
   const importantLine = importantParts.length ? `<div class="item-quick-note">${importantParts.map(escapeHtml).join(' — ')}</div>` : '';
 
   // Se non c'è una nota importante, mostriamo pochi tag tecnici; se c'è, i tag tecnici restano nei dettagli espansi.
-  const technicalBadges = `${it.maniRichieste?`<span class="mini-badge">${num(it.maniRichieste)}M</span>`:''}${it.slot?`<span class="mini-badge">${escapeHtml(it.slot)}</span>`:''}${it.origin?`<span class="mini-badge">${escapeHtml(it.origin)}</span>`:''}`;
+  const technicalBadges = `${it.maniRichieste?`<span class="mini-badge">${num(it.maniRichieste)}M</span>`:''}${it.slot?`<span class="mini-badge">${escapeHtml(it.slot)}</span>`:''}${it.origine?`<span class="mini-badge">${escapeHtml(it.origine)}</span>`:''}`;
   const compactTechLine = importantLine ? '' : `<div class="item-subline">${technicalBadges}</div>`;
 
   const expandedRows = [
@@ -1707,7 +1707,7 @@ function renderInvRow(x){
   return `<div class="item-row ${x.equipaggiato?'equipped':''}"><div class="stars">${x.equipaggiato?'★':''}</div><details class="item-details"><summary><div class="item-topline"><span class="item-name">${escapeHtml(it.nome)} ${stackable?`×${qty}`:(x.quantita>1?`×${x.quantita}`:'')}</span><div class="item-actions">${equipButton}${stackButtons}<button class="small danger" onclick="event.preventDefault(); removeInv('${x.id}')">×</button><button class="small expand-btn" onclick="event.preventDefault(); toggleItemDetails(this)" aria-label="Show or hide details"></button></div></div><div class="item-values-line">${baseBadge}${calcBadge}${maxBonusBadges}${qtyBadge}</div>${importantLine}${compactTechLine}</summary><div class="item-expanded">${expandedRows||'<div class="item-expanded-row">No additional details.</div>'}</div></details></div>`;
 }
 function metaForItem(it){
-  const parts=[]; if(it.tipoFunzionale) parts.push(it.tipoFunzionale); if(num(it.dadiAttacco)) parts.push(num(it.dadiAttacco)+'D att'); if(num(it.bonusDifesa)) parts.push('+'+num(it.bonusDifesa)+'D dif'); if(num(it.bonusMovement)) parts.push((num(it.bonusMovement)>0?'+':'')+num(it.bonusMovement)+' mov'); if(num(it.penalitaMovement)) parts.push('-'+num(it.penalitaMovement)+' mov'); if(num(it.maniRichieste)) parts.push(num(it.maniRichieste)+'M'); if(it.slot) parts.push(it.slot); if(it.origin) parts.push(it.origin); if(it.attaccoDiagonale&&String(it.attaccoDiagonale)!=='false') parts.push('diagonale'); if(it.attaccoRanged&&String(it.attaccoRanged)!=='false') parts.push('distanza'); return parts.join(' · ');
+  const parts=[]; if(it.tipoFunzionale) parts.push(it.tipoFunzionale); if(num(it.dadiAttacco)) parts.push(num(it.dadiAttacco)+'D att'); if(num(it.bonusDifesa)) parts.push('+'+num(it.bonusDifesa)+'D dif'); if(num(it.bonusMovimento)) parts.push((num(it.bonusMovimento)>0?'+':'')+num(it.bonusMovimento)+' mov'); if(num(it.penalitaMovimento)) parts.push('-'+num(it.penalitaMovimento)+' mov'); if(num(it.maniRichieste)) parts.push(num(it.maniRichieste)+'M'); if(it.slot) parts.push(it.slot); if(it.origine) parts.push(it.origine); if(it.attaccoDiagonale&&String(it.attaccoDiagonale)!=='false') parts.push('diagonale'); if(it.attaccoDistanza&&String(it.attaccoDistanza)!=='false') parts.push('distanza'); return parts.join(' · ');
 }
 function autoStatusFromBody(h, corpoMax){
   // Aggiorna stato automaticamente solo per stati "vitali" (non tocca Dead/Retired).
@@ -1748,10 +1748,10 @@ function toggleEquip(invId){
       const names=conflicts.map(x=>itemById(x.itemId)?.nome).filter(Boolean).join(', ');
       const ok=confirm('Equipaggiando "'+it.nome+'" verranno tolti automaticamente: '+names+'.\n\nContinuare?');
       if(!ok) return;
-      conflicts.forEach(x=>{ x.equipaggiato=false; x.slotUseto=''; const real=db.heroInventory.find(r=>r.id===x.id); if(real){ real.equipaggiato=false; real.slotUseto=''; } });
+      conflicts.forEach(x=>{ x.equipaggiato=false; x.slotUsato=''; const real=db.heroInventory.find(r=>r.id===x.id); if(real){ real.equipaggiato=false; real.slotUsato=''; } });
     }
   }
-  inv.equipaggiato=!inv.equipaggiato; inv.slotUseto=inv.equipaggiato ? it.slot : '';
+  inv.equipaggiato=!inv.equipaggiato; inv.slotUsato=inv.equipaggiato ? it.slot : '';
   clampHeroCurrentToEffectiveMax(inv.heroId);
   saveAndRender();
 }
@@ -1812,7 +1812,7 @@ function renderCatalog(){
   const q=(document.getElementById('catalogSearch')?.value||'').toLowerCase();
   const ft=document.getElementById('filterType')?.value||'';
   const fo=document.getElementById('filterOrigin')?.value||'';
-  let rows=db.itemCatalog.filter(it=>(!ft||it.tipoFunzionale===ft)&&(!fo||it.origin===fo));
+  let rows=db.itemCatalog.filter(it=>(!ft||it.tipoFunzionale===ft)&&(!fo||it.origine===fo));
   if(q) rows=rows.filter(it=>JSON.stringify(it).toLowerCase().includes(q));
   rows=sortCatalogRows(rows);
   const table=document.getElementById('catalogTable');
@@ -1821,30 +1821,30 @@ function renderCatalog(){
     sortableCatalogHeader('Tipo','tipoFunzionale'),
     sortableCatalogHeader('Valori','valori'),
     sortableCatalogHeader('Uso','uso'),
-    sortableCatalogHeader('Origin','origin'),
+    sortableCatalogHeader('Origin','origine'),
     sortableCatalogHeader('Cost','costo'),
     sortableCatalogHeader('Quick text','riga'),
     '<th>Azioni</th>'
   ].join('');
-  const rowsHtml=rows.map(it=>`<tr><td><strong>${escapeHtml(it.nome)}</strong><div class="muted">${escapeHtml(it.espansione||'')}</div></td><td>${escapeHtml(it.tipoFunzionale||'')}</td><td>${escapeHtml(rawValueForItem(it))}</td><td>${escapeHtml(it.slot||'')}<div class="muted">${num(it.maniRichieste)?num(it.maniRichieste)+' mani':''} ${it.attaccoDiagonale&&String(it.attaccoDiagonale)!=='false'?' · diagonale':''} ${it.attaccoRanged&&String(it.attaccoRanged)!=='false'?' · distanza':''}</div></td><td>${escapeHtml(it.origin||'')}</td><td>${num(it.costo)||''}</td>${noteTd(it.testoRapido||'')}<td><button class="small" onclick="openItemDialog('${it.id}')">Edit</button> <button class="small danger" onclick="deleteItem('${it.id}')">Delete</button></td></tr>`).join('');
+  const rowsHtml=rows.map(it=>`<tr><td><strong>${escapeHtml(it.nome)}</strong><div class="muted">${escapeHtml(it.espansione||'')}</div></td><td>${escapeHtml(it.tipoFunzionale||'')}</td><td>${escapeHtml(rawValueForItem(it))}</td><td>${escapeHtml(it.slot||'')}<div class="muted">${num(it.maniRichieste)?num(it.maniRichieste)+' mani':''} ${it.attaccoDiagonale&&String(it.attaccoDiagonale)!=='false'?' · diagonale':''} ${it.attaccoDistanza&&String(it.attaccoDistanza)!=='false'?' · distanza':''}</div></td><td>${escapeHtml(it.origine||'')}</td><td>${num(it.costo)||''}</td>${noteTd(it.testoRapido||'')}<td><button class="small" onclick="openItemDialog('${it.id}')">Edit</button> <button class="small danger" onclick="deleteItem('${it.id}')">Delete</button></td></tr>`).join('');
   table.innerHTML=`<thead><tr>${headers}</tr></thead><tbody>${rowsHtml || '<tr><td colspan="8" class="muted">No items found with current filters.</td></tr>'}</tbody>`;
 }
 function openItemDialog(id=null){
   const d=document.getElementById('itemDialog'); document.getElementById('itemDialogTitle').textContent=id?'Edit oggetto':'Add item'; const it=id?itemById(id):{};
-  const fields=['id','nome','tipoFunzionale','origin','categoriaVisiva','slot','sottotipo','dadiAttacco','bonusAttacco','bonusDifesa','bonusMovement','penalitaMovement','bonusBodyMax','bonusMindMax','maniRichieste','costo','espansione','edizione','utilizzabileDa','effettoContro','compatibilitaRestrizioni','testoRapido','noteRegola','immagine'];
+  const fields=['id','nome','tipoFunzionale','origine','categoriaVisiva','slot','sottotipo','dadiAttacco','bonusAttacco','bonusDifesa','bonusMovimento','penalitaMovimento','bonusCorpoMax','bonusMenteMax','maniRichieste','costo','espansione','edizione','utilizzabileDa','effettoContro','compatibilitaRestrizioni','testoRapido','noteRegola','immagine'];
   fields.forEach(f=>{ const el=document.getElementById('item_'+f); if(el) el.value=it[f]??''; });
   document.getElementById('item_equipaggiabile').value=String(it.equipaggiabile??true);
   document.getElementById('item_consumabile').value=String(it.consumabile??false);
   document.getElementById('item_unico').value=String(it.unico??false);
   document.getElementById('item_bonusSempreAttivo').value=String(it.bonusSempreAttivo??false);
   document.getElementById('item_attaccoDiagonale').value=String(it.attaccoDiagonale??false);
-  document.getElementById('item_attaccoRanged').value=String(it.attaccoRanged??false);
-  if(!id){ document.getElementById('item_tipoFunzionale').value='Weapon'; document.getElementById('item_origin').value='Equipment'; document.getElementById('item_slot').value='Main hand'; document.getElementById('item_maniRichieste').value='1'; }
+  document.getElementById('item_attaccoDistanza').value=String(it.attaccoDistanza??false);
+  if(!id){ document.getElementById('item_tipoFunzionale').value='Weapon'; document.getElementById('item_origine').value='Equipment'; document.getElementById('item_slot').value='Main hand'; document.getElementById('item_maniRichieste').value='1'; }
   updateItemFormHints(); d.showModal();
 }
 function saveItemFromDialog(){
   const id=document.getElementById('item_id').value || uid('item');
-  const it={ id, nome:val('item_nome'), tipoFunzionale:val('item_tipoFunzionale'), origin:val('item_origin'), categoriaVisiva:val('item_categoriaVisiva'), slot:val('item_slot'), sottotipo:val('item_sottotipo'), dadiAttacco:num(val('item_dadiAttacco')), bonusAttacco:num(val('item_bonusAttacco')), bonusDifesa:num(val('item_bonusDifesa')), bonusMovement:num(val('item_bonusMovement')), penalitaMovement:num(val('item_penalitaMovement')), bonusBodyMax:num(val('item_bonusBodyMax')), bonusMindMax:num(val('item_bonusMindMax')), maniRichieste:num(val('item_maniRichieste')), equipaggiabile:bool(val('item_equipaggiabile')), consumabile:bool(val('item_consumabile')), unico:bool(val('item_unico')), bonusSempreAttivo:bool(val('item_bonusSempreAttivo')), attaccoDiagonale:val('item_attaccoDiagonale'), attaccoRanged:val('item_attaccoRanged'), utilizzabileDa:val('item_utilizzabileDa'), costo:num(val('item_costo')), espansione:val('item_espansione'), edizione:val('item_edizione'), effettoContro:val('item_effettoContro'), compatibilitaRestrizioni:val('item_compatibilitaRestrizioni'), testoRapido:val('item_testoRapido'), noteRegola:val('item_noteRegola'), immagine:val('item_immagine') };
+  const it={ id, nome:val('item_nome'), tipoFunzionale:val('item_tipoFunzionale'), origine:val('item_origine'), categoriaVisiva:val('item_categoriaVisiva'), slot:val('item_slot'), sottotipo:val('item_sottotipo'), dadiAttacco:num(val('item_dadiAttacco')), bonusAttacco:num(val('item_bonusAttacco')), bonusDifesa:num(val('item_bonusDifesa')), bonusMovimento:num(val('item_bonusMovimento')), penalitaMovimento:num(val('item_penalitaMovimento')), bonusCorpoMax:num(val('item_bonusCorpoMax')), bonusMenteMax:num(val('item_bonusMenteMax')), maniRichieste:num(val('item_maniRichieste')), equipaggiabile:bool(val('item_equipaggiabile')), consumabile:bool(val('item_consumabile')), unico:bool(val('item_unico')), bonusSempreAttivo:bool(val('item_bonusSempreAttivo')), attaccoDiagonale:val('item_attaccoDiagonale'), attaccoDistanza:val('item_attaccoDistanza'), utilizzabileDa:val('item_utilizzabileDa'), costo:num(val('item_costo')), espansione:val('item_espansione'), edizione:val('item_edizione'), effettoContro:val('item_effettoContro'), compatibilitaRestrizioni:val('item_compatibilitaRestrizioni'), testoRapido:val('item_testoRapido'), noteRegola:val('item_noteRegola'), immagine:val('item_immagine') };
   if(!it.nome){ alert('Enter a name.'); return; } const idx=db.itemCatalog.findIndex(x=>x.id===id); if(idx>=0) db.itemCatalog[idx]=it; else db.itemCatalog.push(it); closeDialog('itemDialog'); saveAndRender();
 }
 function updateItemFormHints(){
@@ -1857,13 +1857,13 @@ function fillQuickTextFromFields(){
   if(tipo==='Weapon' && num(val('item_dadiAttacco'))) parts.push(num(val('item_dadiAttacco'))+'D');
   if(num(val('item_bonusDifesa'))) parts.push('+'+num(val('item_bonusDifesa'))+'D Difesa');
   if(num(val('item_bonusAttacco'))) parts.push('+'+num(val('item_bonusAttacco'))+' Attacco');
-  if(num(val('item_bonusBodyMax'))) parts.push('+'+num(val('item_bonusBodyMax'))+' Max Body');
-  if(num(val('item_bonusMindMax'))) parts.push('+'+num(val('item_bonusMindMax'))+' Max Mind');
-  if(num(val('item_bonusMovement'))) parts.push('+'+num(val('item_bonusMovement'))+' Movement');
-  if(num(val('item_penalitaMovement'))) parts.push('-'+num(val('item_penalitaMovement'))+' Movement');
+  if(num(val('item_bonusCorpoMax'))) parts.push('+'+num(val('item_bonusCorpoMax'))+' Max Body');
+  if(num(val('item_bonusMenteMax'))) parts.push('+'+num(val('item_bonusMenteMax'))+' Max Mind');
+  if(num(val('item_bonusMovimento'))) parts.push('+'+num(val('item_bonusMovimento'))+' Movement');
+  if(num(val('item_penalitaMovimento'))) parts.push('-'+num(val('item_penalitaMovimento'))+' Movement');
   if(num(val('item_maniRichieste'))) parts.push(num(val('item_maniRichieste'))+'M');
   if(val('item_attaccoDiagonale') && val('item_attaccoDiagonale')!=='false') parts.push('diagonale');
-  if(val('item_attaccoRanged') && val('item_attaccoRanged')!=='false') parts.push('distanza');
+  if(val('item_attaccoDistanza') && val('item_attaccoDistanza')!=='false') parts.push('distanza');
   if(val('item_effettoContro')) parts.push(val('item_effettoContro'));
   if(val('item_utilizzabileDa')){ const u=val('item_utilizzabileDa'); if(u==='Mystic') parts.push('solo Mystic'); else if(!u.includes('Mystic')) parts.push('no Mystic'); }
   document.getElementById('item_testoRapido').value=parts.join(', ');
@@ -1917,7 +1917,7 @@ function saveHeroFromDialog(){ const id=val('hero_id')||uid('hero'); const h={id
 function deleteHero(id){ if(!confirm('Deletere personaggio e relativo inventario?')) return; db.heroes=db.heroes.filter(h=>h.id!==id); db.heroInventory=db.heroInventory.filter(x=>x.heroId!==id); db.activeHeroIds=db.activeHeroIds.filter(x=>x!==id); saveAndRender(); }
 
 function openAssignDialog(heroId=null,itemId=null){ const d=document.getElementById('assignDialog'); const sel=document.getElementById('assignHero'); sel.innerHTML=db.heroes.map(h=>`<option value="${h.id}">${escapeHtml(h.nome)} (${escapeHtml(h.classe)})</option>`).join(''); if(heroId) sel.value=heroId; d.dataset.itemId=itemId||''; document.getElementById('assignSearch').value=''; renderAssignItems(); d.showModal(); }
-function renderAssignItems(){ const q=(val('assignSearch')||'').toLowerCase(); const t=val('assignType')||''; const fixed=document.getElementById('assignDialog').dataset.itemId; let rows=db.itemCatalog.filter(it=>(!fixed||it.id===fixed)&&(!t||it.tipoFunzionale===t)); if(q) rows=rows.filter(it=>JSON.stringify(it).toLowerCase().includes(q)); document.getElementById('assignTable').innerHTML=`<thead><tr><th>Item</th><th>Tipo</th><th>Valori</th><th>Notes</th><th></th></tr></thead><tbody>${rows.map(it=>`<tr><td><strong>${escapeHtml(it.nome)}</strong><div class="muted">${escapeHtml(it.origin)} · ${escapeHtml(it.espansione||'')}</div></td><td>${escapeHtml(it.tipoFunzionale)}</td><td>${metaForItem(it)}</td><td>${escapeHtml(it.testoRapido||'')}</td><td><button class="small primary" onclick="assignItem('${it.id}')">Assegna</button></td></tr>`).join('')}</tbody>`; }
+function renderAssignItems(){ const q=(val('assignSearch')||'').toLowerCase(); const t=val('assignType')||''; const fixed=document.getElementById('assignDialog').dataset.itemId; let rows=db.itemCatalog.filter(it=>(!fixed||it.id===fixed)&&(!t||it.tipoFunzionale===t)); if(q) rows=rows.filter(it=>JSON.stringify(it).toLowerCase().includes(q)); document.getElementById('assignTable').innerHTML=`<thead><tr><th>Item</th><th>Tipo</th><th>Valori</th><th>Notes</th><th></th></tr></thead><tbody>${rows.map(it=>`<tr><td><strong>${escapeHtml(it.nome)}</strong><div class="muted">${escapeHtml(it.origine)} · ${escapeHtml(it.espansione||'')}</div></td><td>${escapeHtml(it.tipoFunzionale)}</td><td>${metaForItem(it)}</td><td>${escapeHtml(it.testoRapido||'')}</td><td><button class="small primary" onclick="assignItem('${it.id}')">Assegna</button></td></tr>`).join('')}</tbody>`; }
 function assignItem(itemId){
   const heroId=val('assignHero'); const it=itemById(itemId); const hero=heroById(heroId); if(!it||!hero) return;
   const warnings=[];
@@ -1933,10 +1933,10 @@ function assignItem(itemId){
       existing.stato='Owned';
       existing.equipaggiato=false;
     } else {
-      db.heroInventory.push({id:uid('inv'),heroId,itemId,quantita:1,equipaggiato:false,slotUseto:'',stato:'Owned',usiRimasti:'',note:''});
+      db.heroInventory.push({id:uid('inv'),heroId,itemId,quantita:1,equipaggiato:false,slotUsato:'',stato:'Owned',usiRimasti:'',note:''});
     }
   } else {
-    db.heroInventory.push({id:uid('inv'),heroId,itemId,quantita:1,equipaggiato:false,slotUseto:'',stato:'Owned',usiRimasti:'',note:''});
+    db.heroInventory.push({id:uid('inv'),heroId,itemId,quantita:1,equipaggiato:false,slotUsato:'',stato:'Owned',usiRimasti:'',note:''});
   }
   saveAndRender(); closeDialog('assignDialog');
 }
@@ -2078,7 +2078,7 @@ function importActiveHeroesSnapshotFile(e){
 function importJSONFile(e){ const file=e.target.files[0]; if(!file) return; const r=new FileReader(); r.onload=()=>{ try{ const data=JSON.parse(r.result); if(!data.heroes || !data.itemCatalog) throw new Error('Struttura non riconosciuta'); db=data; normalizeDB(); saveAndRender(); showToast('Database loaded successfully.', 'ok'); }catch(err){ alert('JSON import error: '+err.message); } }; r.readAsText(file); e.target.value=''; }
 function resetAll(){ if(!confirm('Reset completo? Prima è meglio fare “Save database”.')) return; db=defaultDB(); saveAndRender(); }
 
-const CATALOG_COLS=['id','nome','tipoFunzionale','origin','categoriaVisiva','slot','sottotipo','dadiAttacco','bonusAttacco','bonusDifesa','bonusMovement','penalitaMovement','bonusBodyMax','bonusMindMax','maniRichieste','equipaggiabile','consumabile','unico','bonusSempreAttivo','attaccoDiagonale','attaccoRanged','utilizzabileDa','costo','espansione','edizione','effettoContro','compatibilitaRestrizioni','testoRapido','noteRegola','immagine'];
+const CATALOG_COLS=['id','nome','tipoFunzionale','origine','categoriaVisiva','slot','sottotipo','dadiAttacco','bonusAttacco','bonusDifesa','bonusMovimento','penalitaMovimento','bonusCorpoMax','bonusMenteMax','maniRichieste','equipaggiabile','consumabile','unico','bonusSempreAttivo','attaccoDiagonale','attaccoDistanza','utilizzabileDa','costo','espansione','edizione','effettoContro','compatibilitaRestrizioni','testoRapido','noteRegola','immagine'];
 function exportCatalogCSV(){ const lines=[CATALOG_COLS.join(',')].concat(db.itemCatalog.map(it=>CATALOG_COLS.map(c=>csvEsc(it[c]??'')).join(','))); download('hero-dashboard-items-demo-export.csv', lines.join('\n'), 'text/csv'); }
 function csvEsc(v){ const s=String(v); return /[",\n;]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; }
 function importCSVFile(e){ const file=e.target.files[0]; if(!file) return; const r=new FileReader(); r.onload=()=>{ try{ const rows=parseCSV(r.result); if(rows.length<2) throw new Error('CSV vuoto'); const headers=rows[0].map(h=>h.trim()).filter(Boolean); const imported=[]; const usedIds=new Set(db.itemCatalog.map(x=>x.id)); const localIds=new Set(); for(let i=1;i<rows.length;i++){ const row=rows[i]; if(row.every(x=>!String(x).trim())) continue; const obj={}; headers.forEach((h,idx)=>obj[h]=row[idx]??''); imported.push(normalizeImportedItem(obj, usedIds, localIds)); } previewCatalogImport(imported, file.name); }catch(err){ alert('Errore import CSV: '+err.message); } }; r.readAsText(file); e.target.value=''; }
@@ -2093,13 +2093,13 @@ function normalizeImportedItem(src, usedIds=new Set(), localIds=new Set()){
   const obj={}; CATALOG_COLS.forEach(k=>obj[k]=src[k]??'');
   if(!String(obj.id||'').trim()) obj.id=makeItemId(obj);
   obj.id=uniqueImportId(String(obj.id).trim(), usedIds, localIds, false);
-  ['dadiAttacco','bonusAttacco','bonusDifesa','bonusMovement','penalitaMovement','bonusBodyMax','bonusMindMax','maniRichieste','costo'].forEach(k=>obj[k]=num(obj[k]));
+  ['dadiAttacco','bonusAttacco','bonusDifesa','bonusMovimento','penalitaMovimento','bonusCorpoMax','bonusMenteMax','maniRichieste','costo'].forEach(k=>obj[k]=num(obj[k]));
   ['equipaggiabile','consumabile','unico','bonusSempreAttivo'].forEach(k=>obj[k]=bool(obj[k]));
-  ['attaccoDiagonale','attaccoRanged'].forEach(k=>obj[k]=normalizeChoiceBoolean(obj[k]));
+  ['attaccoDiagonale','attaccoDistanza'].forEach(k=>obj[k]=normalizeChoiceBoolean(obj[k]));
   return obj;
 }
 function slugify(s){ return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'').slice(0,80); }
-function makeItemId(obj){ const parts=[obj.edizione,obj.espansione,obj.origin,obj.tipoFunzionale,obj.nome].map(slugify).filter(Boolean); return parts.length ? parts.join('_') : uid('item'); }
+function makeItemId(obj){ const parts=[obj.edizione,obj.espansione,obj.origine,obj.tipoFunzionale,obj.nome].map(slugify).filter(Boolean); return parts.length ? parts.join('_') : uid('item'); }
 function uniqueImportId(id, usedIds, localIds, avoidExisting=true){ let base=slugify(id)||uid('item'); let out=base, n=2; while(localIds.has(out) || (avoidExisting && usedIds.has(out))){ out=base+'_'+n++; } localIds.add(out); return out; }
 function itemNameKey(it){ return String(it.nome||'').trim().toLowerCase(); }
 function itemFullKey(it){ return [it.nome,it.espansione,it.edizione].map(x=>String(x||'').trim().toLowerCase()).join('|'); }
@@ -2152,7 +2152,7 @@ function refreshCatalogImportPreview(){
     Risultato previsto: nuovi <strong>${info.added}</strong>, aggiornati <strong>${info.updated}</strong>, saltati <strong>${info.skipped}</strong>, duplicati creati <strong>${info.duplicated}</strong>.${updateWarning}<br>
     <span class="muted">Nessun dato viene applicato finché non premi “Confirm import”. Il reset e l'import di salvataggio completo JSON restano funzioni separate.</span>`;
   const preview=info.analysis.slice(0,150);
-  document.getElementById('catalogImportTable').innerHTML=`<thead><tr><th>Status</th><th>Azione prevista</th><th>ID</th><th>Name</th><th>Tipo</th><th>Origin</th><th>Expansion</th><th>Nota</th></tr></thead><tbody>${preview.map(row=>{ const it=row.it; return `<tr><td><span class="pill ${row.cls}">${escapeHtml(row.status)}</span></td><td>${escapeHtml(row.action)}</td><td><span class="kbd">${escapeHtml(it.id)}</span></td><td><strong>${escapeHtml(it.nome||'')}</strong></td><td>${escapeHtml(it.tipoFunzionale||'')}</td><td>${escapeHtml(it.origin||'')}</td><td>${escapeHtml(it.espansione||'')}</td><td>${escapeHtml(it.testoRapido||it.effettoContro||'')}</td></tr>`; }).join('')}</tbody>`;
+  document.getElementById('catalogImportTable').innerHTML=`<thead><tr><th>Status</th><th>Azione prevista</th><th>ID</th><th>Name</th><th>Tipo</th><th>Origin</th><th>Expansion</th><th>Nota</th></tr></thead><tbody>${preview.map(row=>{ const it=row.it; return `<tr><td><span class="pill ${row.cls}">${escapeHtml(row.status)}</span></td><td>${escapeHtml(row.action)}</td><td><span class="kbd">${escapeHtml(it.id)}</span></td><td><strong>${escapeHtml(it.nome||'')}</strong></td><td>${escapeHtml(it.tipoFunzionale||'')}</td><td>${escapeHtml(it.origine||'')}</td><td>${escapeHtml(it.espansione||'')}</td><td>${escapeHtml(it.testoRapido||it.effettoContro||'')}</td></tr>`; }).join('')}</tbody>`;
   if(info.analysis.length>preview.length){ document.getElementById('catalogImportTable').innerHTML += `<caption class="muted">Mostrati i primi ${preview.length} oggetti su ${info.analysis.length}.</caption>`; }
 }
 function selectedConflictMode(){ const el=document.querySelector('input[name="importConflictMode"]:checked'); return el?el.value:'skip'; }
@@ -2293,7 +2293,7 @@ function applyHeroImport(){
 }
 
 
-const SPELL_COLS=['id','nome','categoria','setMagia','origin','tipoFunzionale','lanciatoDa','bersaglio','tipoEffetto','durata','utilizzabileDa','consumabile','unico','bonusAttacco','bonusDifesa','bonusMovement','malusAttacco','malusDifesa','malusMovement','attaccoFisso','bloccaMovement','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile','dannoBody','effettoDashboard','testoRapido','noteRegola','espansione','edizione','immagine'];
+const SPELL_COLS=['id','nome','categoria','setMagia','origine','tipoFunzionale','lanciatoDa','bersaglio','tipoEffetto','durata','utilizzabileDa','consumabile','unico','bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento','arrotondamento','ordineCalcolo','attaccoFisso','bloccaMovimento','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile','dannoCorpo','effettoDashboard','testoRapido','noteRegola','espansione','edizione','immagine'];
 let pendingSpellImport=null;
 function spellById(id){ return (db.spellCatalog||[]).find(s=>s.id===id); }
 function heroSpellRows(heroId){ return (db.heroSpells||[]).filter(x=>x.heroId===heroId).map(x=>({...x,spell:spellById(x.spellId)})).filter(x=>x.spell); }
@@ -2354,39 +2354,73 @@ function applySpellImport(){
 function spellStatEffect(sp){
   const name=String(sp?.nome||'').toLowerCase();
   const text=(String(sp?.testoRapido||'')+' '+String(sp?.noteRegola||'')+' '+String(sp?.effettoDashboard||'')).toLowerCase();
-  const eff={bonusAttacco:0,bonusDifesa:0,bonusMovement:0,malusAttacco:0,malusDifesa:0,malusMovement:0,moltiplicatoreMovement:1,attaccoFisso:null,bloccaAttacco:false,bloccaDifesa:false,bloccaMovement:false,saltaTurno:false,label:''};
+  const eff={
+    bonusAttacco:0,bonusDifesa:0,bonusMovimento:0,
+    malusAttacco:0,malusDifesa:0,malusMovimento:0,
+    moltiplicatoreAttacco:1,moltiplicatoreDifesa:1,moltiplicatoreMovimento:1,
+    divisoreAttacco:1,divisoreDifesa:1,divisoreMovimento:1,
+    arrotondamento:String(sp?.arrotondamento||'difetto'),
+    ordineCalcolo:String(sp?.ordineCalcolo||'dopo_bonus'),
+    attaccoFisso:null,difesaFissa:null,movimentoFisso:null,
+    bloccaAttacco:false,bloccaDifesa:false,bloccaMovimento:false,saltaTurno:false,label:''
+  };
   const labels=[];
   const addLabel=(x)=>{ if(x && !labels.includes(x)) labels.push(x); };
 
-  ['bonusAttacco','bonusDifesa','bonusMovement','malusAttacco','malusDifesa','malusMovement'].forEach(k=>{ if(sp && sp[k]!==undefined && sp[k]!=='' && Number.isFinite(Number(sp[k]))) eff[k]=Number(sp[k]); });
+  ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento'].forEach(k=>{ if(sp && sp[k]!==undefined && sp[k]!=='' && Number.isFinite(Number(sp[k]))) eff[k]=Number(sp[k]); });
+  if(!eff.moltiplicatoreAttacco) eff.moltiplicatoreAttacco=1;
+  if(!eff.moltiplicatoreDifesa) eff.moltiplicatoreDifesa=1;
+  if(!eff.moltiplicatoreMovimento) eff.moltiplicatoreMovimento=1;
+  if(!eff.divisoreAttacco) eff.divisoreAttacco=1;
+  if(!eff.divisoreDifesa) eff.divisoreDifesa=1;
+  if(!eff.divisoreMovimento) eff.divisoreMovimento=1;
   if(sp && sp.attaccoFisso!==undefined && sp.attaccoFisso!=='' && Number.isFinite(Number(sp.attaccoFisso))) eff.attaccoFisso=Number(sp.attaccoFisso);
-  ['bloccaAttacco','bloccaDifesa','bloccaMovement','saltaTurno'].forEach(k=>{ if(sp && bool(sp[k])) eff[k]=true; });
+  if(sp && sp.difesaFissa!==undefined && sp.difesaFissa!=='' && Number.isFinite(Number(sp.difesaFissa))) eff.difesaFissa=Number(sp.difesaFissa);
+  if(sp && sp.movimentoFisso!==undefined && sp.movimentoFisso!=='' && Number.isFinite(Number(sp.movimentoFisso))) eff.movimentoFisso=Number(sp.movimentoFisso);
+  ['bloccaAttacco','bloccaDifesa','bloccaMovimento','saltaTurno'].forEach(k=>{ if(sp && bool(sp[k])) eff[k]=true; });
 
   if(name.includes('__disattivato_pelle_di_pietra__')){ eff.bonusDifesa=Math.max(eff.bonusDifesa,1); }
   if(name.includes('__disattivato_coraggio__')){ eff.bonusAttacco=Math.max(eff.bonusAttacco,2); }
-  if(name.includes('__disattivato_vento_impetuoso__')){ eff.moltiplicatoreMovement=2; }
+  if(name.includes('__disattivato_vento_impetuoso__')){ eff.moltiplicatoreMovimento=2; }
   if(name.includes('__disattivato_mutaforma__')){ eff.bonusAttacco=Math.max(eff.bonusAttacco,1); eff.bonusDifesa=Math.max(eff.bonusDifesa,1); }
   if(name.includes('__disattivato_demoforma__')){ eff.bonusAttacco=Math.max(eff.bonusAttacco,1); }
   if(name.includes('__disattivato_paura__')){ eff.attaccoFisso=1; }
-  if(name.includes('__disattivato_sonno__') || name.includes('__disattivato_nube_di_terrore__')){ eff.bloccaAttacco=true; eff.bloccaDifesa=true; eff.bloccaMovement=true; }
+  if(name.includes('__disattivato_sonno__') || name.includes('__disattivato_nube_di_terrore__')){ eff.bloccaAttacco=true; eff.bloccaDifesa=true; eff.bloccaMovimento=true; }
   if(name.includes('__disattivato_tempesta__') && String(sp?.categoria||'').toLowerCase().includes('terrore')){ eff.saltaTurno=true; }
 
   if(text.includes('1 dado') && text.includes('difesa') && !String(sp?.categoria||'').toLowerCase().includes('terrore')) eff.bonusDifesa=Math.max(eff.bonusDifesa,1);
   if(text.includes('2 dadi') && text.includes('attacco') && !String(sp?.categoria||'').toLowerCase().includes('terrore')) eff.bonusAttacco=Math.max(eff.bonusAttacco,2);
-  if(text.includes('doppio') && text.includes('movimento')) eff.moltiplicatoreMovement=2;
+  const hasAttack=/(attack|attacking|attack\s+dice|dadi\s+d['’]?attacco|attacco)/.test(text);
+  const hasDefense=/(defense|defence|defend|defense\s+dice|difesa)/.test(text);
+  const hasMovement=/(movement|move|moving|movement\s+dice|dadi\s+movimento|movimento)/.test(text);
+  const saysDouble=/(double|doubles|twice|raddoppia|doppio|moltiplica\s+per\s+2|x2|×2)/.test(text);
+  const saysHalf=/(half|halves|halve|dimezza|met[aà]|divided\s+by\s+2|÷2|\/2)/.test(text);
+  if(saysDouble && hasAttack) eff.moltiplicatoreAttacco=Math.max(eff.moltiplicatoreAttacco,2);
+  if(saysDouble && hasDefense) eff.moltiplicatoreDifesa=Math.max(eff.moltiplicatoreDifesa,2);
+  if(saysDouble && hasMovement) eff.moltiplicatoreMovimento=Math.max(eff.moltiplicatoreMovimento,2);
+  if(saysHalf && hasAttack) eff.divisoreAttacco=Math.max(eff.divisoreAttacco,2);
+  if(saysHalf && hasDefense) eff.divisoreDifesa=Math.max(eff.divisoreDifesa,2);
+  if(saysHalf && hasMovement) eff.divisoreMovimento=Math.max(eff.divisoreMovimento,2);
 
-  if(eff.bonusAttacco) addLabel('+'+eff.bonusAttacco+'D Attacco');
-  if(eff.bonusDifesa) addLabel('+'+eff.bonusDifesa+'D Difesa');
-  if(eff.bonusMovement) addLabel('+'+eff.bonusMovement+' Movement');
-  if(eff.malusAttacco) addLabel('-'+eff.malusAttacco+'D Attacco');
-  if(eff.malusDifesa) addLabel('-'+eff.malusDifesa+'D Difesa');
-  if(eff.malusMovement) addLabel('-'+eff.malusMovement+' Movement');
-  if(eff.attaccoFisso!==null) addLabel('Attacco fissato a '+eff.attaccoFisso+'D');
-  if(eff.bloccaAttacco) addLabel('non attacca');
-  if(eff.bloccaDifesa) addLabel('non difende');
-  if(eff.bloccaMovement) addLabel('non si muove');
-  if(eff.saltaTurno) addLabel('salta il prossimo turno');
-  if(eff.moltiplicatoreMovement && eff.moltiplicatoreMovement!==1) addLabel('Movement ×'+eff.moltiplicatoreMovement);
+  if(eff.bonusAttacco) addLabel('+'+eff.bonusAttacco+'D Attack');
+  if(eff.bonusDifesa) addLabel('+'+eff.bonusDifesa+'D Defense');
+  if(eff.bonusMovimento) addLabel('+'+eff.bonusMovimento+' Movement');
+  if(eff.malusAttacco) addLabel('-'+eff.malusAttacco+'D Attack');
+  if(eff.malusDifesa) addLabel('-'+eff.malusDifesa+'D Defense');
+  if(eff.malusMovimento) addLabel('-'+eff.malusMovimento+' Movement');
+  if(eff.attaccoFisso!==null) addLabel('Attack fixed at '+eff.attaccoFisso+'D');
+  if(eff.difesaFissa!==null) addLabel('Defense '+eff.difesaFissa+'D');
+  if(eff.movimentoFisso!==null) addLabel('Movement '+eff.movimentoFisso);
+  if(eff.moltiplicatoreAttacco && eff.moltiplicatoreAttacco!==1) addLabel('Attack ×'+eff.moltiplicatoreAttacco);
+  if(eff.moltiplicatoreDifesa && eff.moltiplicatoreDifesa!==1) addLabel('Defense ×'+eff.moltiplicatoreDifesa);
+  if(eff.moltiplicatoreMovimento && eff.moltiplicatoreMovimento!==1) addLabel('Movement ×'+eff.moltiplicatoreMovimento);
+  if(eff.divisoreAttacco && eff.divisoreAttacco!==1) addLabel('Attack ÷'+eff.divisoreAttacco);
+  if(eff.divisoreDifesa && eff.divisoreDifesa!==1) addLabel('Defense ÷'+eff.divisoreDifesa);
+  if(eff.divisoreMovimento && eff.divisoreMovimento!==1) addLabel('Movement ÷'+eff.divisoreMovimento);
+  if(eff.bloccaAttacco) addLabel('cannot attack');
+  if(eff.bloccaDifesa) addLabel('cannot defend');
+  if(eff.bloccaMovimento) addLabel('cannot move');
+  if(eff.saltaTurno) addLabel('skips next turn');
   if(!labels.length && sp?.effettoDashboard) addLabel(sp.effettoDashboard);
   eff.label=labels.join(', ');
   return eff;
@@ -2439,10 +2473,10 @@ function normalizeImportedSpell(src, usedIds=new Set(), localIds=new Set()){
   const obj={}; SPELL_COLS.forEach(k=>obj[k]=src[k]??'');
   if(!String(obj.id||'').trim()) obj.id=makeSpellId(obj);
   obj.id=uniqueImportId(String(obj.id).trim(), usedIds, localIds, false);
-  obj.origin=obj.origin||'Magia'; obj.tipoFunzionale=obj.tipoFunzionale||'Incantesimo'; obj.categoria=obj.categoria||'Incantesimo';
+  obj.origine=obj.origine||'Magia'; obj.tipoFunzionale=obj.tipoFunzionale||'Incantesimo'; obj.categoria=obj.categoria||'Incantesimo';
   obj.consumabile=bool(obj.consumabile||true); obj.unico=bool(obj.unico);
-  ['bonusAttacco','bonusDifesa','bonusMovement','malusAttacco','malusDifesa','malusMovement','attaccoFisso','dannoBody'].forEach(k=>obj[k]=obj[k]===''?'':num(obj[k]));
-  ['bloccaMovement','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile'].forEach(k=>obj[k]=bool(obj[k]));
+  ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento','attaccoFisso','dannoCorpo'].forEach(k=>obj[k]=obj[k]===''?'':num(obj[k]));
+  ['bloccaMovimento','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile'].forEach(k=>obj[k]=bool(obj[k]));
   return obj;
 }
 function makeSpellId(obj){ const parts=['inc',obj.categoria,obj.edizione,obj.espansione,obj.setMagia,obj.nome].map(slugify).filter(Boolean); return parts.length ? parts.join('_') : uid('spell'); }
@@ -2450,8 +2484,8 @@ function makeSpellId(obj){ const parts=['inc',obj.categoria,obj.edizione,obj.esp
 
 
 /* ===== V13: moduli espansioni - Allies/Mercenari/Animali e Abilities ===== */
-const ALLY_COLS=['id','nome','tipoAlleato','origin','attacco','difesa','corpoMax','menteMax','movimento','costoGold','costoReputazione','reclutabileDa','espansione','edizione','testoRapido','noteRegola','immagine'];
-const ABILITY_COLS=['id','nome','categoria','classe','origin','tipoUso','usiPerImpresa','attivoApplicabile','bonusAttacco','bonusDifesa','bonusMovement','malusAttacco','malusDifesa','malusMovement','attaccoFisso','difesaFissa','movimentoFisso','testoRapido','noteRegola','espansione','edizione','immagine'];
+const ALLY_COLS=['id','nome','tipoAlleato','origine','attacco','difesa','corpoMax','menteMax','movimento','costoOro','costoReputazione','reclutabileDa','espansione','edizione','testoRapido','noteRegola','immagine'];
+const ABILITY_COLS=['id','nome','categoria','classe','origine','tipoUso','usiPerImpresa','attivoApplicabile','bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','attaccoFisso','difesaFissa','movimentoFisso','testoRapido','noteRegola','espansione','edizione','immagine'];
 
 function normalizeDB(){
   db.heroes ||= []; db.itemCatalog ||= []; db.heroInventory ||= [];
@@ -2461,14 +2495,14 @@ function normalizeDB(){
   db.activeHeroIds ||= db.heroes.slice(0,4).map(h=>h.id); db.settings ||= {};
   if(db.settings.campaignNumber===undefined) db.settings.campaignNumber='';
   if(db.settings.campaignSet===undefined) db.settings.campaignSet='';
-  db.spellCatalog.forEach(sp=>{ if(sp.origin===undefined) sp.origin='Magia'; if(sp.tipoFunzionale===undefined) sp.tipoFunzionale='Incantesimo'; if(sp.consumabile===undefined) sp.consumabile=true; if(sp.unico===undefined) sp.unico=false; });
+  db.spellCatalog.forEach(sp=>{ if(sp.origine===undefined) sp.origine='Magia'; if(sp.tipoFunzionale===undefined) sp.tipoFunzionale='Incantesimo'; if(sp.consumabile===undefined) sp.consumabile=true; if(sp.unico===undefined) sp.unico=false; ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento','attaccoFisso','dannoCorpo'].forEach(k=>{ if(sp[k]===undefined || sp[k]==='') sp[k]=''; else sp[k]=num(sp[k]); }); if(sp.moltiplicatoreAttacco==='') sp.moltiplicatoreAttacco=1; if(sp.moltiplicatoreDifesa==='') sp.moltiplicatoreDifesa=1; if(sp.moltiplicatoreMovimento==='') sp.moltiplicatoreMovimento=1; if(sp.divisoreAttacco==='') sp.divisoreAttacco=1; if(sp.divisoreDifesa==='') sp.divisoreDifesa=1; if(sp.divisoreMovimento==='') sp.divisoreMovimento=1; if(sp.arrotondamento===undefined) sp.arrotondamento='difetto'; if(sp.ordineCalcolo===undefined) sp.ordineCalcolo='dopo_bonus'; });
   db.heroSpells.forEach(hs=>{ if(hs.usato===undefined) hs.usato=false; if(hs.attivo===undefined) hs.attivo=false; });
-  db.allyCatalog.forEach(a=>{ ['attacco','difesa','corpoMax','menteMax','movimento','costoGold','costoReputazione'].forEach(k=>a[k]=num(a[k])); });
+  db.allyCatalog.forEach(a=>{ ['attacco','difesa','corpoMax','menteMax','movimento','costoOro','costoReputazione'].forEach(k=>a[k]=num(a[k])); });
   db.heroAllies.forEach(ha=>{ if(ha.stato===undefined) ha.stato='Alive'; if(ha.corpoAttuale===undefined){ const al=allyById(ha.allyId); ha.corpoAttuale=al?num(al.corpoMax):0; } if(ha.menteAttuale===undefined){ const al=allyById(ha.allyId); ha.menteAttuale=al?num(al.menteMax):0; } });
-  db.abilityCatalog.forEach(ab=>{ ['usiPerImpresa','bonusAttacco','bonusDifesa','bonusMovement','malusAttacco','malusDifesa','malusMovement','attaccoFisso','difesaFissa','movimentoFisso'].forEach(k=>ab[k]=(ab[k]===''||ab[k]===undefined)?'':num(ab[k])); if(ab.attivoApplicabile===undefined) ab.attivoApplicabile=false; });
+  db.abilityCatalog.forEach(ab=>{ ['usiPerImpresa','bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','attaccoFisso','difesaFissa','movimentoFisso'].forEach(k=>ab[k]=(ab[k]===''||ab[k]===undefined)?'':num(ab[k])); if(ab.attivoApplicabile===undefined) ab.attivoApplicabile=false; });
   db.heroAbilities.forEach(ha=>{ if(ha.usata===undefined) ha.usata=false; if(ha.attiva===undefined) ha.attiva=false; if(ha.usiRimasti===undefined){ const ab=abilityById(ha.abilityId); ha.usiRimasti=ab?num(ab.usiPerImpresa):0; } });
   db.heroes.forEach(h=>{ if(h.movimentoBase===undefined) h.movimentoBase=2; });
-  db.itemCatalog.forEach(it=>{ if(it.bonusMovement===undefined) it.bonusMovement=0; if(it.penalitaMovement===undefined) it.penalitaMovement=0; if(it.bonusSempreAttivo===undefined) it.bonusSempreAttivo=false; if(it.attaccoDiagonale===undefined) it.attaccoDiagonale=false; else it.attaccoDiagonale=bool(it.attaccoDiagonale); if(it.attaccoRanged===undefined) it.attaccoRanged=false; else it.attaccoRanged=bool(it.attaccoRanged); if(it.effettoContro===undefined) it.effettoContro=''; if(it.compatibilitaRestrizioni===undefined) it.compatibilitaRestrizioni=''; });
+  db.itemCatalog.forEach(it=>{ if(it.bonusMovimento===undefined) it.bonusMovimento=0; if(it.penalitaMovimento===undefined) it.penalitaMovimento=0; if(it.bonusSempreAttivo===undefined) it.bonusSempreAttivo=false; if(it.attaccoDiagonale===undefined) it.attaccoDiagonale=false; else it.attaccoDiagonale=bool(it.attaccoDiagonale); if(it.attaccoDistanza===undefined) it.attaccoDistanza=false; else it.attaccoDistanza=bool(it.attaccoDistanza); if(it.effettoContro===undefined) it.effettoContro=''; if(it.compatibilitaRestrizioni===undefined) it.compatibilitaRestrizioni=''; });
 }
 function renderAll(){ renderSelectOptions(); renderSessionMeta(); renderDashboard(); renderCatalog(); renderHeroes(); renderSpells(); renderAllies(); renderAbilities(); renderDatabaseInfo(); }
 function allyById(id){ return (db.allyCatalog||[]).find(a=>a.id===id); }
@@ -2476,11 +2510,11 @@ function abilityById(id){ return (db.abilityCatalog||[]).find(a=>a.id===id); }
 function heroAllyRows(heroId){ return (db.heroAllies||[]).filter(x=>x.heroId===heroId).map(x=>({...x,ally:allyById(x.allyId)})).filter(x=>x.ally); }
 function heroAbilityRows(heroId){ return (db.heroAbilities||[]).filter(x=>x.heroId===heroId).map(x=>({...x,ability:abilityById(x.abilityId)})).filter(x=>x.ability); }
 function abilityStatEffect(ab){
-  const eff={bonusAttacco:num(ab?.bonusAttacco),bonusDifesa:num(ab?.bonusDifesa),bonusMovement:num(ab?.bonusMovement),malusAttacco:num(ab?.malusAttacco),malusDifesa:num(ab?.malusDifesa),malusMovement:num(ab?.malusMovement),attaccoFisso:ab?.attaccoFisso===''?'':num(ab?.attaccoFisso),difesaFissa:ab?.difesaFissa===''?'':num(ab?.difesaFissa),movimentoFisso:ab?.movimentoFisso===''?'':num(ab?.movimentoFisso),label:''};
+  const eff={bonusAttacco:num(ab?.bonusAttacco),bonusDifesa:num(ab?.bonusDifesa),bonusMovimento:num(ab?.bonusMovimento),malusAttacco:num(ab?.malusAttacco),malusDifesa:num(ab?.malusDifesa),malusMovimento:num(ab?.malusMovimento),attaccoFisso:ab?.attaccoFisso===''?'':num(ab?.attaccoFisso),difesaFissa:ab?.difesaFissa===''?'':num(ab?.difesaFissa),movimentoFisso:ab?.movimentoFisso===''?'':num(ab?.movimentoFisso),label:''};
   const parts=[];
   if(eff.bonusAttacco) parts.push('+'+eff.bonusAttacco+'D Attacco'); if(eff.malusAttacco) parts.push('-'+eff.malusAttacco+'D Attacco'); if(eff.attaccoFisso!=='') parts.push('Attacco '+eff.attaccoFisso+'D');
   if(eff.bonusDifesa) parts.push('+'+eff.bonusDifesa+'D Difesa'); if(eff.malusDifesa) parts.push('-'+eff.malusDifesa+'D Difesa'); if(eff.difesaFissa!=='') parts.push('Difesa '+eff.difesaFissa+'D');
-  if(eff.bonusMovement) parts.push('+'+eff.bonusMovement+' Movement'); if(eff.malusMovement) parts.push('-'+eff.malusMovement+' Movement'); if(eff.movimentoFisso!=='') parts.push('Movement '+eff.movimentoFisso);
+  if(eff.bonusMovimento) parts.push('+'+eff.bonusMovimento+' Movement'); if(eff.malusMovimento) parts.push('-'+eff.malusMovimento+' Movement'); if(eff.movimentoFisso!=='') parts.push('Movement '+eff.movimentoFisso);
   eff.label=parts.join(', '); return eff;
 }
 function activeAbilityEffectsForHero(heroId){ return heroAbilityRows(heroId).filter(x=>x.attiva).map(x=>({row:x,effect:abilityStatEffect(x.ability)})); }
@@ -2515,6 +2549,22 @@ function clampHeroCurrentToEffectiveMax(heroId){
   if(num(h.menteAttuale)>c.menteMax){ h.menteAttuale=c.menteMax; changed=true; }
   return changed;
 }
+
+function roundDashboardValue(value, mode='difetto'){
+  const m=String(mode||'difetto').toLowerCase();
+  if(m.includes('eccesso') || m.includes('ceil') || m.includes('up')) return Math.ceil(value);
+  if(m.includes('norm') || m.includes('round')) return Math.round(value);
+  return Math.floor(value);
+}
+function applyMultiplierDivider(value, mult, div, roundMode){
+  let v=Number(value);
+  const m=Number(mult);
+  const d=Number(div);
+  if(Number.isFinite(m) && m && m!==1) v*=m;
+  if(Number.isFinite(d) && d && d!==1) v=roundDashboardValue(v/d, roundMode);
+  return Math.max(0,v);
+}
+
 function calcHero(hero){
   const inv = invForHero(hero.id);
   const active = inv.filter(isInventoryRowActiveForStats);
@@ -2524,22 +2574,22 @@ function calcHero(hero){
   const abilityEffects = activeAbilityEffectsForHero(hero.id);
   const attackParts=[]; let attack = weapon ? num(weapon.item.dadiAttacco) : num(hero.attaccoBase); attackParts.push(weapon ? `${weapon.item.nome} ${num(weapon.item.dadiAttacco)}D` : `Base ${num(hero.attaccoBase)}D`);
   active.forEach(x=>{ const b=num(x.item.bonusAttacco); if(b){ attack+=b; attackParts.push(`${x.item.nome} +${b}D`); } });
-  spellEffects.forEach(x=>{ const e=x.effect; if(e.attaccoFisso!==undefined && e.attaccoFisso!==null && e.attaccoFisso!==''){ attack=num(e.attaccoFisso); attackParts.push(`${x.row.spell.nome}: attacco ${attack}D [eff.]`); } const b=num(e.bonusAttacco); if(b){ attack+=b; attackParts.push(`${x.row.spell.nome} +${b}D [eff.]`); } const m=num(e.malusAttacco); if(m){ attack=Math.max(0,attack-m); attackParts.push(`${x.row.spell.nome} -${m}D [eff.]`); } if(e.bloccaAttacco){ attack=0; attackParts.push(`${x.row.spell.nome}: non può attaccare [eff.]`); } });
+  spellEffects.forEach(x=>{ const e=x.effect; if(e.attaccoFisso!==undefined && e.attaccoFisso!==null && e.attaccoFisso!==''){ attack=num(e.attaccoFisso); attackParts.push(`${x.row.spell.nome}: attacco ${attack}D [eff.]`); } const b=num(e.bonusAttacco); if(b){ attack+=b; attackParts.push(`${x.row.spell.nome} +${b}D [eff.]`); } const m=num(e.malusAttacco); if(m){ attack=Math.max(0,attack-m); attackParts.push(`${x.row.spell.nome} -${m}D [eff.]`); } const mult=num(e.moltiplicatoreAttacco); const div=num(e.divisoreAttacco); if((mult&&mult!==1)||(div&&div!==1)){ attack=applyMultiplierDivider(attack,mult,div,e.arrotondamento); if(mult&&mult!==1) attackParts.push(`${x.row.spell.nome} ×${mult}D [eff.]`); if(div&&div!==1) attackParts.push(`${x.row.spell.nome} ÷${div}D [eff.]`); } if(e.bloccaAttacco){ attack=0; attackParts.push(`${x.row.spell.nome}: non può attaccare [eff.]`); } });
   abilityEffects.forEach(x=>{ const e=x.effect; if(e.attaccoFisso!==''){ attack=e.attaccoFisso; attackParts.push(`${x.row.ability.nome}: attacco ${attack}D [abilità]`); } if(e.bonusAttacco){ attack+=e.bonusAttacco; attackParts.push(`${x.row.ability.nome} +${e.bonusAttacco}D [abilità]`); } if(e.malusAttacco){ attack=Math.max(0,attack-e.malusAttacco); attackParts.push(`${x.row.ability.nome} -${e.malusAttacco}D [abilità]`); } });
   const defenseParts=[]; let defense = num(hero.difesaBase); defenseParts.push('Base '+defense+'D');
   active.forEach(x=>{ const b=num(x.item.bonusDifesa); if(b){ defense+=b; defenseParts.push(`${x.item.nome} +${b}D${x.item.bonusSempreAttivo&&!x.equipaggiato?' [sempre]':''}`); } });
-  spellEffects.forEach(x=>{ const e=x.effect; if(e.difesaFissa!==undefined && e.difesaFissa!==null && e.difesaFissa!==''){ defense=num(e.difesaFissa); defenseParts.push(`${x.row.spell.nome}: difesa ${defense}D [eff.]`); } const b=num(e.bonusDifesa); if(b){ defense+=b; defenseParts.push(`${x.row.spell.nome} +${b}D [eff.]`); } const m=num(e.malusDifesa); if(m){ defense=Math.max(0,defense-m); defenseParts.push(`${x.row.spell.nome} -${m}D [eff.]`); } if(e.bloccaDifesa){ defense=0; defenseParts.push(`${x.row.spell.nome}: non può difendersi [eff.]`); } });
+  spellEffects.forEach(x=>{ const e=x.effect; if(e.difesaFissa!==undefined && e.difesaFissa!==null && e.difesaFissa!==''){ defense=num(e.difesaFissa); defenseParts.push(`${x.row.spell.nome}: difesa ${defense}D [eff.]`); } const b=num(e.bonusDifesa); if(b){ defense+=b; defenseParts.push(`${x.row.spell.nome} +${b}D [eff.]`); } const m=num(e.malusDifesa); if(m){ defense=Math.max(0,defense-m); defenseParts.push(`${x.row.spell.nome} -${m}D [eff.]`); } const mult=num(e.moltiplicatoreDifesa); const div=num(e.divisoreDifesa); if((mult&&mult!==1)||(div&&div!==1)){ defense=applyMultiplierDivider(defense,mult,div,e.arrotondamento); if(mult&&mult!==1) defenseParts.push(`${x.row.spell.nome} ×${mult}D [eff.]`); if(div&&div!==1) defenseParts.push(`${x.row.spell.nome} ÷${div}D [eff.]`); } if(e.bloccaDifesa){ defense=0; defenseParts.push(`${x.row.spell.nome}: non può difendersi [eff.]`); } });
   abilityEffects.forEach(x=>{ const e=x.effect; if(e.difesaFissa!==''){ defense=e.difesaFissa; defenseParts.push(`${x.row.ability.nome}: difesa ${defense}D [abilità]`); } if(e.bonusDifesa){ defense+=e.bonusDifesa; defenseParts.push(`${x.row.ability.nome} +${e.bonusDifesa}D [abilità]`); } if(e.malusDifesa){ defense=Math.max(0,defense-e.malusDifesa); defenseParts.push(`${x.row.ability.nome} -${e.malusDifesa}D [abilità]`); } });
   let movimento = num(hero.movimentoBase); const movementParts=[]; movementParts.push('Base '+movimento);
-  active.forEach(x=>{ const m=num(x.item.bonusMovement); const p=num(x.item.penalitaMovement); if(m){ movimento+=m; movementParts.push(`${x.item.nome} ${m>0?'+':''}${m}`); } if(p){ movimento-=p; movementParts.push(`${x.item.nome} -${p}`); } });
-  spellEffects.forEach(x=>{ const e=x.effect; if(e.movimentoFisso!==undefined && e.movimentoFisso!==null && e.movimentoFisso!==''){ movimento=num(e.movimentoFisso); movementParts.push(`${x.row.spell.nome}: movimento ${movimento} [eff.]`); } const m=num(e.bonusMovement); if(m){ movimento+=m; movementParts.push(`${x.row.spell.nome} ${m>0?'+':''}${m} [eff.]`); } const mm=num(e.malusMovement); if(mm){ movimento=Math.max(0,movimento-mm); movementParts.push(`${x.row.spell.nome} -${mm} [eff.]`); } const mult=num(e.moltiplicatoreMovement); if(mult && mult!==1){ movimento*=mult; movementParts.push(`${x.row.spell.nome} ×${mult} [eff.]`); } if(e.bloccaMovement){ movimento=0; movementParts.push(`${x.row.spell.nome}: non può muoversi [eff.]`); } if(e.saltaTurno){ movementParts.push(`${x.row.spell.nome}: salta prossimo turno [eff.]`); } });
-  abilityEffects.forEach(x=>{ const e=x.effect; if(e.movimentoFisso!==''){ movimento=e.movimentoFisso; movementParts.push(`${x.row.ability.nome}: movimento ${movimento} [abilità]`); } if(e.bonusMovement){ movimento+=e.bonusMovement; movementParts.push(`${x.row.ability.nome} +${e.bonusMovement} [abilità]`); } if(e.malusMovement){ movimento=Math.max(0,movimento-e.malusMovement); movementParts.push(`${x.row.ability.nome} -${e.malusMovement} [abilità]`); } });
+  active.forEach(x=>{ const m=num(x.item.bonusMovimento); const p=num(x.item.penalitaMovimento); if(m){ movimento+=m; movementParts.push(`${x.item.nome} ${m>0?'+':''}${m}`); } if(p){ movimento-=p; movementParts.push(`${x.item.nome} -${p}`); } });
+  spellEffects.forEach(x=>{ const e=x.effect; if(e.movimentoFisso!==undefined && e.movimentoFisso!==null && e.movimentoFisso!==''){ movimento=num(e.movimentoFisso); movementParts.push(`${x.row.spell.nome}: movimento ${movimento} [eff.]`); } const m=num(e.bonusMovimento); if(m){ movimento+=m; movementParts.push(`${x.row.spell.nome} ${m>0?'+':''}${m} [eff.]`); } const mm=num(e.malusMovimento); if(mm){ movimento=Math.max(0,movimento-mm); movementParts.push(`${x.row.spell.nome} -${mm} [eff.]`); } const mult=num(e.moltiplicatoreMovimento); const div=num(e.divisoreMovimento); if((mult&&mult!==1)||(div&&div!==1)){ movimento=applyMultiplierDivider(movimento,mult,div,e.arrotondamento); if(mult&&mult!==1) movementParts.push(`${x.row.spell.nome} ×${mult} [eff.]`); if(div&&div!==1) movementParts.push(`${x.row.spell.nome} ÷${div} [eff.]`); } if(e.bloccaMovimento){ movimento=0; movementParts.push(`${x.row.spell.nome}: non può muoversi [eff.]`); } if(e.saltaTurno){ movementParts.push(`${x.row.spell.nome}: salta prossimo turno [eff.]`); } });
+  abilityEffects.forEach(x=>{ const e=x.effect; if(e.movimentoFisso!==''){ movimento=e.movimentoFisso; movementParts.push(`${x.row.ability.nome}: movimento ${movimento} [abilità]`); } if(e.bonusMovimento){ movimento+=e.bonusMovimento; movementParts.push(`${x.row.ability.nome} +${e.bonusMovimento} [abilità]`); } if(e.malusMovimento){ movimento=Math.max(0,movimento-e.malusMovimento); movementParts.push(`${x.row.ability.nome} -${e.malusMovimento} [abilità]`); } });
   attack=Math.max(0,attack); defense=Math.max(0,defense); movimento=Math.max(0,movimento);
   let corpoMax = num(hero.corpoMax), menteMax = num(hero.menteMax);
   const corpoMaxParts=['Base '+corpoMax];
   const menteMaxParts=['Base '+menteMax];
   active.forEach(x=>{
-    const bc=num(x.item.bonusBodyMax), bm=num(x.item.bonusMindMax);
+    const bc=num(x.item.bonusCorpoMax), bm=num(x.item.bonusMenteMax);
     if(bc){ corpoMax+=bc; corpoMaxParts.push(`${x.item.nome} +${bc}`); }
     if(bm){ menteMax+=bm; menteMaxParts.push(`${x.item.nome} +${bm}`); }
   });
@@ -2595,9 +2645,9 @@ function renderHeroAbilitiesTable(){
   table.innerHTML=`<thead><tr><th>Eroe</th><th>Abilities</th><th>Status</th><th>Effetto</th><th>Azioni</th></tr></thead><tbody>${rows.map(x=>{ const eff=abilityStatEffect(x.ability); return `<tr><td>${escapeHtml(x.hero.nome)}</td><td><strong>${escapeHtml(x.ability.nome)}</strong></td><td><span class="pill ${x.attiva?'ok':x.usata?'warn':'gold'}">${x.attiva?'Attiva':x.usata?'Useta':'Disponibile'}</span></td><td>${escapeHtml(eff.label||x.ability.testoRapido||'')}</td><td>${actionButtons(x)} <button class="small danger" onclick="removeHeroAbility('${x.id}')">Rimuovi</button></td></tr>`; }).join('')}</tbody>`;
 }
 
-function normalizeImportedAlly(src, usedIds=new Set(), localIds=new Set()){ const obj={}; ALLY_COLS.forEach(k=>obj[k]=src[k]??''); if(!String(obj.id||'').trim()) obj.id=makeAllyId(obj); obj.id=uniqueImportId(String(obj.id).trim(), usedIds, localIds, false); ['attacco','difesa','corpoMax','menteMax','movimento','costoGold','costoReputazione'].forEach(k=>obj[k]=num(obj[k])); return obj; }
+function normalizeImportedAlly(src, usedIds=new Set(), localIds=new Set()){ const obj={}; ALLY_COLS.forEach(k=>obj[k]=src[k]??''); if(!String(obj.id||'').trim()) obj.id=makeAllyId(obj); obj.id=uniqueImportId(String(obj.id).trim(), usedIds, localIds, false); ['attacco','difesa','corpoMax','menteMax','movimento','costoOro','costoReputazione'].forEach(k=>obj[k]=num(obj[k])); return obj; }
 function makeAllyId(o){ return ['alleato',o.edizione,o.espansione,o.tipoAlleato,o.nome].map(slugify).filter(Boolean).join('_')||uid('ally'); }
-function normalizeImportedAbility(src, usedIds=new Set(), localIds=new Set()){ const obj={}; ABILITY_COLS.forEach(k=>obj[k]=src[k]??''); if(!String(obj.id||'').trim()) obj.id=makeAbilityId(obj); obj.id=uniqueImportId(String(obj.id).trim(), usedIds, localIds, false); ['usiPerImpresa','bonusAttacco','bonusDifesa','bonusMovement','malusAttacco','malusDifesa','malusMovement','attaccoFisso','difesaFissa','movimentoFisso'].forEach(k=>obj[k]=(obj[k]===''?'':num(obj[k]))); obj.attivoApplicabile=bool(obj.attivoApplicabile); return obj; }
+function normalizeImportedAbility(src, usedIds=new Set(), localIds=new Set()){ const obj={}; ABILITY_COLS.forEach(k=>obj[k]=src[k]??''); if(!String(obj.id||'').trim()) obj.id=makeAbilityId(obj); obj.id=uniqueImportId(String(obj.id).trim(), usedIds, localIds, false); ['usiPerImpresa','bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','attaccoFisso','difesaFissa','movimentoFisso'].forEach(k=>obj[k]=(obj[k]===''?'':num(obj[k]))); obj.attivoApplicabile=bool(obj.attivoApplicabile); return obj; }
 function makeAbilityId(o){ return ['abilita',o.edizione,o.espansione,o.classe,o.nome].map(slugify).filter(Boolean).join('_')||uid('ability'); }
 function importAlliesCSVFile(e){ importCatalogLikeCSV(e,'allyCatalog',ALLY_COLS,normalizeImportedAlly,renderAllies,'alleati'); }
 function importAlliesJSONFile(e){ importCatalogLikeJSON(e,'allyCatalog',normalizeImportedAlly,renderAllies,'alleati'); }
@@ -2653,13 +2703,21 @@ function ensureManualCatalogDialogs(){
   <div class="form-section"><h3>2. Valori per dashboard</h3><div class="form-grid field-compact">
     <div><label>Attack bonus</label><input id="spell_bonusAttacco" type="number" step="1"></div>
     <div><label>Defense bonus</label><input id="spell_bonusDifesa" type="number" step="1"></div>
-    <div><label>Movement bonus</label><input id="spell_bonusMovement" type="number" step="1"></div>
+    <div><label>Movement bonus</label><input id="spell_bonusMovimento" type="number" step="1"></div>
     <div><label>Malus attacco</label><input id="spell_malusAttacco" type="number" step="1"></div>
     <div><label>Malus difesa</label><input id="spell_malusDifesa" type="number" step="1"></div>
-    <div><label>Malus movimento</label><input id="spell_malusMovement" type="number" step="1"></div>
+    <div><label>Malus movimento</label><input id="spell_malusMovimento" type="number" step="1"></div>
+    <div><label>Attack multiplier</label><input id="spell_moltiplicatoreAttacco" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Defense multiplier</label><input id="spell_moltiplicatoreDifesa" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Movement multiplier</label><input id="spell_moltiplicatoreMovimento" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Attack divisor</label><input id="spell_divisoreAttacco" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Defense divisor</label><input id="spell_divisoreDifesa" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Movement divisor</label><input id="spell_divisoreMovimento" type="number" step="0.1" placeholder="1 / 2"></div>
+    <div><label>Divisor rounding</label><select id="spell_arrotondamento"><option value="difetto">Down</option><option value="eccesso">Up</option><option value="normale">Nearest</option></select></div>
+    <div><label>Calculation order</label><select id="spell_ordineCalcolo"><option value="dopo_bonus">After bonus/malus</option><option value="manuale">Manual/to verify</option></select></div>
     <div><label>Attacco fisso</label><input id="spell_attaccoFisso" type="number" step="1" placeholder="Es. Paura = 1"></div>
-    <div><label>Danno Body</label><input id="spell_dannoBody" type="number" step="1"></div>
-    <div><label>Blocca movimento</label><select id="spell_bloccaMovement"><option value="false">No</option><option value="true">Yes</option></select></div>
+    <div><label>Danno Body</label><input id="spell_dannoCorpo" type="number" step="1"></div>
+    <div><label>Blocca movimento</label><select id="spell_bloccaMovimento"><option value="false">No</option><option value="true">Yes</option></select></div>
     <div><label>Blocca attacco</label><select id="spell_bloccaAttacco"><option value="false">No</option><option value="true">Yes</option></select></div>
     <div><label>Blocca difesa</label><select id="spell_bloccaDifesa"><option value="false">No</option><option value="true">Yes</option></select></div>
     <div><label>Salta turno</label><select id="spell_saltaTurno"><option value="false">No</option><option value="true">Yes</option></select></div>
@@ -2699,7 +2757,7 @@ function ensureManualCatalogDialogs(){
     <div><label>Max Body</label><input id="ally_corpoMax" type="number" step="1"></div>
     <div><label>Max Mind</label><input id="ally_menteMax" type="number" step="1"></div>
     <div><label>Movement</label><input id="ally_movimento" type="number" step="1"></div>
-    <div><label>Cost oro</label><input id="ally_costoGold" type="number" step="1"></div>
+    <div><label>Cost oro</label><input id="ally_costoOro" type="number" step="1"></div>
     <div><label>Cost reputazione</label><input id="ally_costoReputazione"></div>
   </div></div>
   <div class="form-section"><h3>3. Testi</h3><div class="grid grid2">
@@ -2731,10 +2789,10 @@ function ensureManualCatalogDialogs(){
   <div class="form-section"><h3>2. Valori per dashboard</h3><div class="form-grid field-compact">
     <div><label>Attack bonus</label><input id="ability_bonusAttacco" type="number" step="1"></div>
     <div><label>Defense bonus</label><input id="ability_bonusDifesa" type="number" step="1"></div>
-    <div><label>Movement bonus</label><input id="ability_bonusMovement" type="number" step="1"></div>
+    <div><label>Movement bonus</label><input id="ability_bonusMovimento" type="number" step="1"></div>
     <div><label>Malus attacco</label><input id="ability_malusAttacco" type="number" step="1"></div>
     <div><label>Malus difesa</label><input id="ability_malusDifesa" type="number" step="1"></div>
-    <div><label>Malus movimento</label><input id="ability_malusMovement" type="number" step="1"></div>
+    <div><label>Malus movimento</label><input id="ability_malusMovimento" type="number" step="1"></div>
     <div><label>Attacco fisso</label><input id="ability_attaccoFisso" type="number" step="1"></div>
     <div><label>Difesa fissa</label><input id="ability_difesaFissa" type="number" step="1"></div>
     <div><label>Movement fisso</label><input id="ability_movimentoFisso" type="number" step="1"></div>
@@ -2762,7 +2820,7 @@ function openSpellManualDialog(id=null){
   setFieldValue('spell','oldId',sp.id||'');
   SPELL_COLS.forEach(k=>setFieldValue('spell',k,sp[k]??''));
   if(!id){
-    setFieldValue('spell','categoria','Incantesimo'); setFieldValue('spell','origin','Magia'); setFieldValue('spell','tipoFunzionale','Incantesimo');
+    setFieldValue('spell','categoria','Incantesimo'); setFieldValue('spell','origine','Magia'); setFieldValue('spell','tipoFunzionale','Incantesimo');
     setFieldValue('spell','lanciatoDa','Eroe'); setFieldValue('spell','consumabile','true'); setFieldValue('spell','unico','false'); setFieldValue('spell','attivoApplicabile','true');
   }
   document.getElementById('spellManualDialog').showModal();
@@ -2774,9 +2832,9 @@ function saveSpellManualDialog(){
   obj.nome=String(obj.nome||'').trim(); if(!obj.nome){ alert('Inserisci il nome.'); return; }
   if(!String(obj.id||'').trim()) obj.id=makeSpellId(obj); obj.id=slugify(obj.id)||uid('spell');
   if(db.spellCatalog.some(x=>x.id===obj.id && x.id!==oldId)){ alert('Esiste già un incantesimo con questo ID.'); return; }
-  obj.origin=obj.origin||'Magia'; obj.tipoFunzionale=obj.tipoFunzionale||'Incantesimo'; obj.categoria=obj.categoria||'Incantesimo';
-  ['bonusAttacco','bonusDifesa','bonusMovement','malusAttacco','malusDifesa','malusMovement','attaccoFisso','dannoBody'].forEach(k=>obj[k]=optionalNum(obj[k]));
-  ['bloccaMovement','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile','consumabile','unico'].forEach(k=>obj[k]=bool(obj[k]));
+  obj.origine=obj.origine||'Magia'; obj.tipoFunzionale=obj.tipoFunzionale||'Incantesimo'; obj.categoria=obj.categoria||'Incantesimo';
+  ['bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','moltiplicatoreAttacco','moltiplicatoreDifesa','moltiplicatoreMovimento','divisoreAttacco','divisoreDifesa','divisoreMovimento','attaccoFisso','dannoCorpo'].forEach(k=>obj[k]=optionalNum(obj[k]));
+  ['bloccaMovimento','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile','consumabile','unico'].forEach(k=>obj[k]=bool(obj[k]));
   const idx=db.spellCatalog.findIndex(x=>x.id===oldId);
   if(idx>=0){ db.spellCatalog[idx]=obj; updateReferencesAfterIdChange('heroSpells',oldId,obj.id,'spellId'); }
   else db.spellCatalog.push(obj);
@@ -2790,7 +2848,7 @@ function openAllyManualDialog(id=null){
   document.getElementById('allyManualTitle').textContent=id?'Edit alleato':'Nuovo alleato';
   setFieldValue('ally','oldId',a.id||'');
   ALLY_COLS.forEach(k=>setFieldValue('ally',k,a[k]??''));
-  if(!id){ setFieldValue('ally','tipoAlleato','Mercenario'); setFieldValue('ally','origin','Expansion'); }
+  if(!id){ setFieldValue('ally','tipoAlleato','Mercenario'); setFieldValue('ally','origine','Expansion'); }
   document.getElementById('allyManualDialog').showModal();
 }
 function saveAllyManualDialog(){
@@ -2800,7 +2858,7 @@ function saveAllyManualDialog(){
   obj.nome=String(obj.nome||'').trim(); if(!obj.nome){ alert('Inserisci il nome.'); return; }
   if(!String(obj.id||'').trim()) obj.id=makeAllyId(obj); obj.id=slugify(obj.id)||uid('ally');
   if(db.allyCatalog.some(x=>x.id===obj.id && x.id!==oldId)){ alert('Esiste già un alleato con questo ID.'); return; }
-  ['attacco','difesa','corpoMax','menteMax','movimento','costoGold'].forEach(k=>obj[k]=num(obj[k]));
+  ['attacco','difesa','corpoMax','menteMax','movimento','costoOro'].forEach(k=>obj[k]=num(obj[k]));
   obj.costoReputazione=String(obj.costoReputazione||'');
   const idx=db.allyCatalog.findIndex(x=>x.id===oldId);
   if(idx>=0){ db.allyCatalog[idx]=obj; updateReferencesAfterIdChange('heroAllies',oldId,obj.id,'allyId'); }
@@ -2820,7 +2878,7 @@ function openAbilityManualDialog(id=null){
   document.getElementById('abilityManualTitle').textContent=id?'Edit abilità':'Nuova abilità';
   setFieldValue('ability','oldId',ab.id||'');
   ABILITY_COLS.forEach(k=>setFieldValue('ability',k,ab[k]??''));
-  if(!id){ setFieldValue('ability','categoria','Abilities'); setFieldValue('ability','origin','Class'); setFieldValue('ability','attivoApplicabile','true'); }
+  if(!id){ setFieldValue('ability','categoria','Abilities'); setFieldValue('ability','origine','Class'); setFieldValue('ability','attivoApplicabile','true'); }
   document.getElementById('abilityManualDialog').showModal();
 }
 function saveAbilityManualDialog(){
@@ -2830,7 +2888,7 @@ function saveAbilityManualDialog(){
   obj.nome=String(obj.nome||'').trim(); if(!obj.nome){ alert('Inserisci il nome.'); return; }
   if(!String(obj.id||'').trim()) obj.id=makeAbilityId(obj); obj.id=slugify(obj.id)||uid('ability');
   if(db.abilityCatalog.some(x=>x.id===obj.id && x.id!==oldId)){ alert('Esiste già un\'abilità con questo ID.'); return; }
-  ['usiPerImpresa','bonusAttacco','bonusDifesa','bonusMovement','malusAttacco','malusDifesa','malusMovement','attaccoFisso','difesaFissa','movimentoFisso'].forEach(k=>obj[k]=optionalNum(obj[k]));
+  ['usiPerImpresa','bonusAttacco','bonusDifesa','bonusMovimento','malusAttacco','malusDifesa','malusMovimento','attaccoFisso','difesaFissa','movimentoFisso'].forEach(k=>obj[k]=optionalNum(obj[k]));
   obj.attivoApplicabile=bool(obj.attivoApplicabile);
   const idx=db.abilityCatalog.findIndex(x=>x.id===oldId);
   if(idx>=0){ db.abilityCatalog[idx]=obj; updateReferencesAfterIdChange('heroAbilities',oldId,obj.id,'abilityId'); }
@@ -2863,7 +2921,7 @@ function renderSpells(){
 function renderAllies(){
   if(!document.getElementById('alliesTable')) return; db.allyCatalog ||= [];
   const q=(document.getElementById('allySearch')?.value||'').toLowerCase(); let rows=db.allyCatalog.slice(); if(q) rows=rows.filter(a=>JSON.stringify(a).toLowerCase().includes(q));
-  document.getElementById('alliesTable').innerHTML=`<thead><tr><th>Name</th><th>Tipo</th><th>Valori</th><th>Cost</th><th>Expansion</th><th>Notes</th><th>Azioni</th></tr></thead><tbody>${rows.map(a=>`<tr><td><strong>${escapeHtml(a.nome||'')}</strong><div class="muted">${escapeHtml(a.id||'')}</div></td><td>${escapeHtml(a.tipoAlleato||'')}</td><td>Att ${num(a.attacco)}D · Dif ${num(a.difesa)}D · Body ${num(a.corpoMax)} · Mind ${num(a.menteMax)} · Mov ${num(a.movimento)}</td><td>${num(a.costoGold)||''}${a.costoReputazione?` / Rep ${escapeHtml(a.costoReputazione)}`:''}</td><td>${escapeHtml(a.espansione||'')}</td>${noteTd(a.testoRapido||a.noteRegola||'')}<td><button class="small" onclick="openAllyManualDialog('${a.id}')">Edit</button> <button class="small danger" onclick="deleteAlly('${a.id}')">Delete</button></td></tr>`).join('')}</tbody>`;
+  document.getElementById('alliesTable').innerHTML=`<thead><tr><th>Name</th><th>Tipo</th><th>Valori</th><th>Cost</th><th>Expansion</th><th>Notes</th><th>Azioni</th></tr></thead><tbody>${rows.map(a=>`<tr><td><strong>${escapeHtml(a.nome||'')}</strong><div class="muted">${escapeHtml(a.id||'')}</div></td><td>${escapeHtml(a.tipoAlleato||'')}</td><td>Att ${num(a.attacco)}D · Dif ${num(a.difesa)}D · Body ${num(a.corpoMax)} · Mind ${num(a.menteMax)} · Mov ${num(a.movimento)}</td><td>${num(a.costoOro)||''}${a.costoReputazione?` / Rep ${escapeHtml(a.costoReputazione)}`:''}</td><td>${escapeHtml(a.espansione||'')}</td>${noteTd(a.testoRapido||a.noteRegola||'')}<td><button class="small" onclick="openAllyManualDialog('${a.id}')">Edit</button> <button class="small danger" onclick="deleteAlly('${a.id}')">Delete</button></td></tr>`).join('')}</tbody>`;
   renderHeroAlliesTable();
 }
 function renderAbilities(){
@@ -2962,16 +3020,16 @@ function cleanManualCatalogDialogs(){
   ensureManualCatalogDialogs();
   const spellBonusSection=document.getElementById('spell_bonusAttacco')?.closest('.form-section');
   replaceModifierGrid(spellBonusSection,[
-    {title:'Attacco', help:'Bonus/malus o valore fisso dei dadi attacco.', ids:['spell_bonusAttacco','spell_malusAttacco','spell_attaccoFisso','spell_bloccaAttacco']},
-    {title:'Difesa', help:'Modifiche ai dadi difesa o blocco difesa.', ids:['spell_bonusDifesa','spell_malusDifesa','spell_bloccaDifesa']},
-    {title:'Movement', help:'Modifiche al movimento, blocco o salto turno.', ids:['spell_bonusMovement','spell_malusMovement','spell_bloccaMovement','spell_saltaTurno']},
-    {title:'Uso', help:'Comportamento generale dell’effetto.', ids:['spell_dannoBody','spell_attivoApplicabile','spell_consumabile','spell_unico']}
+    {title:'Attacco', help:'Bonus/malus o valore fisso dei dadi attacco.', ids:['spell_bonusAttacco','spell_malusAttacco','spell_moltiplicatoreAttacco','spell_divisoreAttacco','spell_attaccoFisso','spell_bloccaAttacco']},
+    {title:'Difesa', help:'Modifiche ai dadi difesa o blocco difesa.', ids:['spell_bonusDifesa','spell_malusDifesa','spell_moltiplicatoreDifesa','spell_divisoreDifesa','spell_bloccaDifesa']},
+    {title:'Movement', help:'Modifiche al movimento, blocco o salto turno.', ids:['spell_bonusMovimento','spell_malusMovimento','spell_moltiplicatoreMovimento','spell_divisoreMovimento','spell_bloccaMovimento','spell_saltaTurno','spell_arrotondamento','spell_ordineCalcolo']},
+    {title:'Uso', help:'Comportamento generale dell’effetto.', ids:['spell_dannoCorpo','spell_attivoApplicabile','spell_consumabile','spell_unico']}
   ]);
   const abilityBonusSection=document.getElementById('ability_bonusAttacco')?.closest('.form-section');
   replaceModifierGrid(abilityBonusSection,[
     {title:'Attacco', help:'Bonus/malus o valore fisso dei dadi attacco.', ids:['ability_bonusAttacco','ability_malusAttacco','ability_attaccoFisso']},
     {title:'Difesa', help:'Bonus/malus o valore fisso dei dadi difesa.', ids:['ability_bonusDifesa','ability_malusDifesa','ability_difesaFissa']},
-    {title:'Movement', help:'Bonus/malus o valore fisso del movimento.', ids:['ability_bonusMovement','ability_malusMovement','ability_movimentoFisso']},
+    {title:'Movement', help:'Bonus/malus o valore fisso del movimento.', ids:['ability_bonusMovimento','ability_malusMovimento','ability_movimentoFisso']},
     {title:'Uso', help:'Regola se l’abilità resta attiva in dashboard.', ids:['ability_attivoApplicabile']}
   ]);
   moveFieldToAdvanced('spellManualDialog','Campi avanzati non usati in dashboard',['spell_immagine']);
@@ -2979,7 +3037,7 @@ function cleanManualCatalogDialogs(){
   moveFieldToAdvanced('abilityManualDialog','Campi avanzati non usati in dashboard',['ability_immagine']);
 }
 const _openSpellManualDialogV138 = openSpellManualDialog;
-openSpellManualDialog = function(id=null){ _openSpellManualDialogV138(id); cleanManualCatalogDialogs(); normalizeBooleanSelects('spell',['bloccaMovement','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile','consumabile','unico']); };
+openSpellManualDialog = function(id=null){ _openSpellManualDialogV138(id); cleanManualCatalogDialogs(); normalizeBooleanSelects('spell',['bloccaMovimento','bloccaAttacco','bloccaDifesa','saltaTurno','attivoApplicabile','consumabile','unico']); };
 const _openAbilityManualDialogV138 = openAbilityManualDialog;
 openAbilityManualDialog = function(id=null){ _openAbilityManualDialogV138(id); cleanManualCatalogDialogs(); normalizeBooleanSelects('ability',['attivoApplicabile']); };
 const _openAllyManualDialogV138 = openAllyManualDialog;
