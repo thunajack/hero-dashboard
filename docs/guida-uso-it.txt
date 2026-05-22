@@ -1,0 +1,249 @@
+HERO DASHBOARD
+Guida semplice all'utilizzo
+
+Hero Dashboard è un piccolo gestionale da browser pensato per aiutare nella gestione di una campagna dungeon crawler/fantasy.
+
+Serve per tenere sotto controllo personaggi, inventario, oggetti, armi, armature, incantesimi, effetti temporanei, abilità, alleati, salvataggi e stampa della squadra attiva.
+
+Il programma funziona aprendo il file index.html nel browser. Non serve installare nulla.
+
+I dati vengono salvati nel browser del computer utilizzato. È comunque consigliato usare spesso il pulsante "Salva database" per creare una copia di sicurezza su file JSON.
+
+------------------------------------------------------------
+1. DASHBOARD
+------------------------------------------------------------
+
+La Dashboard è la schermata principale.
+
+Qui si gestisce la partita vera e propria.
+
+Puoi scegliere fino a 4 personaggi attivi. Ogni personaggio viene mostrato in una scheda separata.
+
+Per ogni eroe puoi vedere:
+- nome;
+- classe;
+- Corpo attuale e massimo;
+- Mente attuale e massima;
+- Oro;
+- Attacco;
+- Difesa;
+- Movimento;
+- oggetti equipaggiati;
+- oggetti posseduti;
+- effetti attivi;
+- alleati;
+- abilità.
+
+I valori di Attacco, Difesa, Movimento, Corpo massimo e Mente massima vengono calcolati automaticamente in base a oggetti equipaggiati, effetti attivi e abilità attive.
+
+Il simbolo ★ indica che un oggetto è equipaggiato e viene usato nei calcoli.
+
+I pulsanti + e - permettono di modificare rapidamente Corpo, Mente e Oro.
+
+Dalla Dashboard puoi anche:
+- aggiungere oggetti a un personaggio;
+- applicare effetti o incantesimi;
+- assegnare alleati;
+- assegnare abilità;
+- stampare la squadra attiva.
+
+------------------------------------------------------------
+2. OGGETTI
+------------------------------------------------------------
+
+La sezione Oggetti contiene il catalogo degli oggetti disponibili.
+
+Qui si inserisce tutto ciò che può finire nell'inventario di un personaggio, per esempio:
+- armi;
+- armature;
+- scudi;
+- elmi;
+- anelli;
+- amuleti;
+- artefatti;
+- pozioni;
+- pergamene;
+- oggetti speciali;
+- oggetti homebrew.
+
+Ogni oggetto può avere nome, tipo, origine, slot, dadi di attacco, bonus difesa, bonus movimento, bonus Corpo/Mente massimi, mani richieste, costo, restrizioni e testi descrittivi.
+
+Non tutti i campi sono obbligatori. Se un campo non serve, può essere lasciato vuoto.
+
+La "riga breve" è il testo sintetico che compare nella scheda del personaggio. È utile per avere subito sott'occhio l'effetto principale dell'oggetto.
+
+Gli oggetti del catalogo non appartengono automaticamente a nessuno. Prima vanno creati nel catalogo, poi assegnati ai personaggi dalla Dashboard o dal comando "Assegna oggetto".
+
+------------------------------------------------------------
+3. PERSONAGGI
+------------------------------------------------------------
+
+La sezione Personaggi contiene l'elenco degli eroi disponibili.
+
+Qui puoi creare, modificare o eliminare personaggi.
+
+Per ogni personaggio puoi indicare nome, giocatore, classe, Corpo, Mente, attacco base, difesa base, movimento base, oro, stato e note.
+
+I personaggi creati qui possono poi essere scelti nella Dashboard come personaggi attivi.
+
+È possibile avere più di 4 personaggi nel database, ma nella Dashboard vengono mostrati solo i personaggi selezionati come attivi.
+
+------------------------------------------------------------
+4. INCANTESIMI ED EFFETTI
+------------------------------------------------------------
+
+La sezione Incantesimi contiene il catalogo degli incantesimi e degli effetti temporanei.
+
+Può essere usata anche per maledizioni, bonus temporanei, penalità temporanee, effetti di mostri, effetti di oggetti, condizioni speciali e contenuti homebrew.
+
+Gli effetti possono modificare Attacco, Difesa, Movimento o bloccare alcune azioni.
+
+Gli incantesimi o effetti inseriti nel catalogo possono essere applicati ai personaggi dalla Dashboard con il pulsante "Aggiungi effetto".
+
+Quando un effetto è attivo, viene mostrato nella scheda del personaggio e i suoi modificatori vengono conteggiati automaticamente.
+
+Quando l'effetto termina, usa il pulsante "Termina".
+
+------------------------------------------------------------
+5. ALLEATI
+------------------------------------------------------------
+
+La sezione Alleati serve per gestire compagni, mercenari, animali o personaggi secondari.
+
+Un alleato non è un oggetto. Ha statistiche proprie.
+
+Gli alleati vengono creati nel catalogo e poi assegnati a un personaggio dalla Dashboard.
+
+Quando un alleato è assegnato, nella scheda del personaggio puoi vedere i suoi valori principali e gestire il suo Corpo attuale.
+
+------------------------------------------------------------
+6. ABILITÀ
+------------------------------------------------------------
+
+La sezione Abilità serve per gestire capacità speciali dei personaggi.
+
+Può contenere abilità di classe, talenti, tecniche, poteri, capacità homebrew o regole speciali.
+
+Un'abilità può essere solo descrittiva oppure modificare i valori del personaggio.
+
+Le abilità create nel catalogo possono essere assegnate ai personaggi dalla Dashboard.
+
+Se un'abilità è attiva, viene conteggiata nei calcoli. Se invece viene solo usata una volta, può essere segnata come usata.
+
+------------------------------------------------------------
+7. SALVA / CARICA
+------------------------------------------------------------
+
+Questa sezione serve per non perdere i dati e per spostare il materiale da un file all'altro.
+
+SALVA DATABASE
+Crea un file completo con tutti i dati presenti nel gestionale: personaggi, oggetti, inventari, incantesimi, effetti, alleati, abilità e dati della sessione.
+È il salvataggio più importante.
+
+CARICA DATABASE SALVATO
+Carica un database completo salvato in precedenza.
+Attenzione: caricando un database completo, il contenuto attuale viene sostituito da quello del file caricato.
+
+SALVA 4 ATTIVI
+Salva solo i 4 personaggi attualmente selezionati nella Dashboard, con inventario, effetti, alleati, abilità e cataloghi collegati.
+Non è un salvataggio completo del gestionale.
+
+CARICA 4 ATTIVI QUI
+Importa una squadra salvata con "Salva 4 attivi".
+Non cancella tutto il database, ma se trova lo stesso personaggio già presente lo aggiorna e sostituisce inventario, effetti, alleati e abilità di quel personaggio.
+
+------------------------------------------------------------
+8. IMPORTA / ESPORTA CSV
+------------------------------------------------------------
+
+Il programma permette di importare o esportare alcuni cataloghi in formato CSV.
+
+Puoi usare CSV per:
+- personaggi;
+- oggetti;
+- incantesimi;
+- alleati;
+- abilità.
+
+Questa funzione è utile se vuoi preparare molti elementi in un foglio di calcolo.
+
+Se non usi CSV, puoi ignorare questa parte e inserire tutto manualmente dall'interfaccia.
+
+------------------------------------------------------------
+9. STAMPA
+------------------------------------------------------------
+
+Dalla parte alta del programma puoi stampare la Dashboard.
+
+Sono disponibili due modalità:
+- Stampa rapida A4;
+- Stampa completa A4.
+
+La stampa rapida è più compatta. La stampa completa mostra più informazioni.
+
+------------------------------------------------------------
+10. SALVATAGGIO NEL BROWSER
+------------------------------------------------------------
+
+Il programma salva automaticamente i dati nel browser.
+
+Questo significa che, se chiudi e riapri il file dallo stesso computer e dallo stesso browser, i dati dovrebbero rimanere disponibili.
+
+Questo salvataggio non va però considerato un backup sicuro.
+
+I dati potrebbero andare persi se cambi browser, cambi computer, cancelli la cronologia, usi modalità privata o se il browser elimina i dati locali.
+
+Per sicurezza, usa spesso "Salva database".
+
+------------------------------------------------------------
+11. PRIVACY
+------------------------------------------------------------
+
+Hero Dashboard funziona localmente nel browser.
+
+Non invia dati a server esterni.
+Non richiede account.
+Non richiede connessione internet per funzionare.
+
+I dati rimangono nel browser dell'utente, a meno che l'utente non scelga di esportarli in un file.
+
+------------------------------------------------------------
+12. COPYRIGHT E CONTENUTI UFFICIALI
+------------------------------------------------------------
+
+Hero Dashboard viene distribuito come strumento vuoto e personalizzabile.
+
+La versione pubblica non dovrebbe includere:
+- testi ufficiali di carte o manuali;
+- immagini ufficiali;
+- loghi;
+- scansioni;
+- database ufficiali completi già compilati.
+
+Gli esempi dimostrativi sono fittizi e servono solo a mostrare il funzionamento.
+
+Ogni utente è responsabile dei dati che inserisce nel proprio database.
+
+------------------------------------------------------------
+13. CONSIGLI PRATICI
+------------------------------------------------------------
+
+Prima di una sessione:
+1. apri index.html;
+2. carica il tuo database, se necessario;
+3. scegli i 4 personaggi attivi;
+4. controlla inventari ed effetti;
+5. stampa la Dashboard se vuoi una copia cartacea.
+
+Durante la partita:
+1. modifica Corpo, Mente e Oro dalla Dashboard;
+2. equipaggia o togli oggetti;
+3. applica o termina effetti;
+4. usa abilità;
+5. aggiorna alleati e compagni.
+
+Dopo la partita:
+1. aggiorna oro, oggetti e stato dei personaggi;
+2. termina gli effetti non più attivi;
+3. salva il database completo;
+4. conserva una copia del file esportato.

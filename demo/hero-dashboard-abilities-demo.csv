@@ -1,0 +1,4 @@
+﻿id,nome,categoria,classe,origine,tipoUso,usiPerImpresa,attivoApplicabile,bonusAttacco,bonusDifesa,bonusMovimento,malusAttacco,malusDifesa,malusMovimento,attaccoFisso,difesaFissa,movimentoFisso,testoRapido,noteRegola,espansione,edizione,immagine
+ability_colpo_prudente,Colpo prudente,Tecnica,"Guardiana,Cartografo",Homebrew,Attiva,1,True,1,0,0,0,0,0,,,,+1D Attacco quando attiva,Abilità inventata per dimostrazione.,Demo pubblica,Fittizia,
+ability_scudo_alzato,Scudo alzato,Tecnica,Guardiana,Homebrew,Attiva,1,True,0,1,0,0,0,0,,,,+1D Difesa quando attiva,Abilità inventata per dimostrazione.,Demo pubblica,Fittizia,
+ability_scattolaterale,Scatto laterale,Movimento,Bracconiere,Homebrew,Attiva,1,True,0,0,1,0,0,0,,,,+1 Movimento quando attiva,Abilità inventata per dimostrazione.,Demo pubblica,Fittizia,

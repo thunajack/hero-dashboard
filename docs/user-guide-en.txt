@@ -1,0 +1,363 @@
+HERO DASHBOARD
+Simple user guide
+
+Hero Dashboard is a small browser-based tool designed to help manage a dungeon crawler/fantasy campaign.
+
+It helps you track:
+- characters;
+- inventory;
+- items;
+- weapons and armor;
+- spells and temporary effects;
+- abilities;
+- allies, mercenaries or animals;
+- backups;
+- party printouts.
+
+The tool runs directly by opening the HTML file in a browser. No installation is required.
+
+Data is saved in the browser used on that computer. It is still recommended to use “Save database” often to create a backup file.
+
+------------------------------------------------------------
+1. DASHBOARD
+------------------------------------------------------------
+
+The Dashboard is the main screen.
+
+Here you manage the actual play session.
+
+You can choose up to 4 active characters. Each character appears in a separate card.
+
+For each hero you can see:
+- name;
+- class;
+- current and maximum Body;
+- current and maximum Mind;
+- Gold;
+- Attack;
+- Defense;
+- Movement;
+- equipped items;
+- owned items;
+- active effects;
+- allies;
+- abilities.
+
+Attack, Defense, Movement, maximum Body and maximum Mind are calculated automatically from equipped items, active effects and active abilities.
+
+The ★ symbol means an item is equipped and used in calculations.
+
+The + and - buttons quickly change Body, Mind and Gold.
+
+From the Dashboard you can also:
+- add items to a character;
+- apply effects or spells;
+- assign allies;
+- assign abilities;
+- print the active party.
+
+The Dashboard is the part you will use during play.
+
+------------------------------------------------------------
+2. ITEMS
+------------------------------------------------------------
+
+The Items section contains the item catalog.
+
+Use it for anything that can go into a character inventory, such as:
+- weapons;
+- armor;
+- shields;
+- helmets;
+- rings;
+- amulets;
+- artifacts;
+- potions;
+- scrolls;
+- special items;
+- homebrew items.
+
+Each item can have several fields, including:
+- name;
+- type;
+- origin;
+- equipment slot;
+- attack dice;
+- defense bonus;
+- movement bonus;
+- maximum Body bonus;
+- maximum Mind bonus;
+- required hands;
+- usable by;
+- cost;
+- quick text;
+- full rule.
+
+Not all fields are required. Leave unused fields empty.
+
+The “quick text” is the short text shown in the character card. It is useful to see the item's main effect immediately.
+
+Items in the catalog do not automatically belong to anyone. Create them in the catalog first, then assign them to characters from the Dashboard or with “Assign item”.
+
+------------------------------------------------------------
+3. CHARACTERS
+------------------------------------------------------------
+
+The Characters section lists available heroes.
+
+Here you can create, edit or delete characters.
+
+For each character you can set:
+- name;
+- player;
+- class;
+- maximum Body;
+- current Body;
+- maximum Mind;
+- current Mind;
+- base attack;
+- base defense;
+- base movement;
+- gold;
+- status;
+- notes.
+
+Characters created here can be selected in the Dashboard as active characters.
+
+You can have more than 4 characters in the database, but only the selected active characters are shown in the Dashboard.
+
+------------------------------------------------------------
+4. SPELLS AND EFFECTS
+------------------------------------------------------------
+
+The Spells section contains the catalog of spells and temporary effects.
+
+It can be used for:
+- spells;
+- curses;
+- temporary bonuses;
+- temporary penalties;
+- monster effects;
+- item effects;
+- special conditions;
+- homebrew effects.
+
+An effect can modify:
+- Attack;
+- Defense;
+- Movement;
+- ability to attack;
+- ability to defend;
+- ability to move;
+- other temporary states.
+
+Effects from the catalog can be applied to characters from the Dashboard with “Add effect”.
+
+When an effect is active, it is shown on the character card and its modifiers are counted automatically.
+
+Use “End” when the effect is over.
+
+------------------------------------------------------------
+5. ALLIES
+------------------------------------------------------------
+
+The Allies section manages companions, mercenaries, animals or secondary characters.
+
+An ally is not an item. It has its own stats.
+
+For each ally you can set:
+- name;
+- type;
+- attack;
+- defense;
+- maximum Body;
+- maximum Mind;
+- movement;
+- cost;
+- quick text;
+- notes.
+
+Allies are created in the catalog and then assigned to a character from the Dashboard.
+
+------------------------------------------------------------
+6. ABILITIES
+------------------------------------------------------------
+
+The Abilities section manages character special abilities.
+
+It can contain:
+- class abilities;
+- talents;
+- techniques;
+- powers;
+- homebrew abilities;
+- special rules.
+
+An ability can be descriptive only, or it can modify character values.
+
+It may grant:
+- Attack bonus;
+- Defense bonus;
+- Movement bonus;
+- temporary penalties;
+- fixed values;
+- activatable effects.
+
+Abilities created in the catalog can be assigned to characters from the Dashboard.
+
+------------------------------------------------------------
+7. SAVE / LOAD
+------------------------------------------------------------
+
+The Save / Load section is one of the most important parts.
+
+It prevents data loss and lets you move data between files.
+
+SAVE DATABASE
+
+“Save database” creates a full file with all data in the tool.
+
+It contains:
+- characters;
+- items;
+- inventories;
+- spells;
+- effects;
+- allies;
+- abilities;
+- session data.
+
+This is the most important backup.
+
+LOAD SAVED DATABASE
+
+Loads a complete database previously saved.
+
+Warning: loading a full database replaces the current content with the loaded file.
+
+SAVE 4 ACTIVE
+
+This saves only the 4 characters currently selected in the Dashboard.
+
+It contains:
+- the 4 active heroes;
+- their inventory;
+- their effects;
+- their allies;
+- their abilities;
+- items or elements linked to those characters.
+
+It is not a full backup.
+
+LOAD 4 ACTIVE HERE
+
+Imports a party saved with “Save 4 active”.
+
+This does not delete the whole database.
+
+However, if it finds the same existing character, it updates it and replaces its inventory, effects, allies and abilities with those from the loaded file.
+
+------------------------------------------------------------
+8. CSV IMPORT / EXPORT
+------------------------------------------------------------
+
+The tool can import or export some catalogs in CSV format.
+
+CSV is a text file organized in columns, useful for preparing many entries in a spreadsheet.
+
+You can use CSV for:
+- characters;
+- items;
+- spells;
+- allies;
+- abilities.
+
+If you do not use CSV or spreadsheets, you can ignore this part and enter everything manually.
+
+------------------------------------------------------------
+9. PRINTING
+------------------------------------------------------------
+
+From the top bar you can print the Dashboard.
+
+Two modes are available:
+- Quick A4 print;
+- Full A4 print.
+
+Quick print is more compact and gives you a summary of the party.
+
+Full print shows more information but may take more space.
+
+------------------------------------------------------------
+10. BROWSER STORAGE
+------------------------------------------------------------
+
+The tool automatically saves data in the browser.
+
+If you close and reopen the file on the same computer and browser, the data should still be available.
+
+Do not treat browser storage as a secure backup.
+
+Data may be lost if:
+- you change browser;
+- you change computer;
+- you clear browser data;
+- you use private mode;
+- the browser removes local data.
+
+Use “Save database” often.
+
+------------------------------------------------------------
+11. PRIVACY
+------------------------------------------------------------
+
+Hero Dashboard works locally in the browser.
+
+It does not send data to external servers.
+
+It does not require an account.
+
+It does not require an internet connection to function.
+
+Data remains in the user's browser unless exported to a file.
+
+------------------------------------------------------------
+12. COPYRIGHT AND OFFICIAL CONTENT
+------------------------------------------------------------
+
+Hero Dashboard is distributed as an empty and customizable tool.
+
+It should not include:
+- official card/manual text;
+- official images;
+- logos;
+- scans;
+- pre-filled official databases.
+
+The demo examples are fictional and only show how the tool works.
+
+Each user is responsible for the data they enter.
+
+------------------------------------------------------------
+13. PRACTICAL ADVICE
+------------------------------------------------------------
+
+Before a session:
+1. open the HTML file;
+2. load your database if needed;
+3. choose the 4 active characters;
+4. check inventories and effects;
+5. print the Dashboard if you want a paper copy.
+
+During play:
+1. change Body, Mind and Gold from the Dashboard;
+2. equip or unequip items;
+3. apply or end effects;
+4. use abilities;
+5. update allies and companions.
+
+After the session:
+1. update gold, items and character status;
+2. end effects that are no longer active;
+3. save the full database;
+4. keep a copy of the exported file.

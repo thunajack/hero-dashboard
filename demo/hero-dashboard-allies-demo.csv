@@ -1,0 +1,3 @@
+﻿id,nome,tipoAlleato,origine,attacco,difesa,corpoMax,menteMax,movimento,costoOro,costoReputazione,reclutabileDa,espansione,edizione,testoRapido,noteRegola,immagine
+ally_corvo,Corvo esploratore,Animale,Homebrew,1,1,1,1,3,0,0,"Bracconiere,Mistica",Demo pubblica,Fittizia,Alleato leggero da ricognizione,Creatura inventata per mostrare la gestione degli alleati.,
+ally_lanciere,Lanciere di confine,Mercenario,Homebrew,2,2,2,1,2,75,0,Tutti,Demo pubblica,Fittizia,Mercenario con attacco e difesa base,Personaggio di supporto inventato.,

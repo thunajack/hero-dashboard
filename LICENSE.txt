@@ -1,0 +1,44 @@
+Hero Dashboard
+Copyright © 2026 J.M.H. - Thunajack
+
+ITALIANO
+
+Hero Dashboard è uno strumento fan-made gratuito per uso personale.
+
+È consentito:
+- scaricare il file;
+- usarlo privatamente;
+- modificarlo per uso personale.
+
+Non è consentito senza autorizzazione scritta dell'autore:
+- vendere il file;
+- ripubblicarlo altrove;
+- distribuire versioni modificate;
+- usarlo in prodotti o servizi commerciali;
+- presentarlo come opera propria.
+
+Il progetto non include materiale ufficiale protetto, testi di carte/manuali, immagini, loghi o database ufficiali già compilati.
+
+Il progetto è fornito “così com’è”, senza garanzia di funzionamento, completezza o idoneità a uno scopo specifico.
+
+---
+
+ENGLISH
+
+Hero Dashboard is a free fan-made tool for personal use.
+
+You may:
+- download the file;
+- use it privately;
+- modify it for personal use.
+
+You may not, without written permission from the author:
+- sell the file;
+- republish it elsewhere;
+- distribute modified versions;
+- use it in commercial products or services;
+- present it as your own work.
+
+The project does not include protected official material, card/manual text, images, logos, or pre-filled official databases.
+
+The project is provided “as is”, without any warranty of functionality, completeness, or fitness for a particular purpose.

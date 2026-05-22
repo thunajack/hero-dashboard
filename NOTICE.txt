@@ -1,0 +1,25 @@
+Hero Dashboard - Notice / Avviso
+
+ITALIANO
+
+Hero Dashboard è un progetto fan-made, gratuito e non ufficiale.
+Non è affiliato, sponsorizzato o approvato da editori, produttori o titolari di marchi.
+
+La versione pubblica contiene solo esempi fittizi/homebrew.
+Non include testi ufficiali di carte o manuali, immagini ufficiali, loghi, scansioni o database ufficiali già compilati.
+
+Ogni utente è responsabile dei dati che inserisce nel proprio database locale.
+I dati rimangono nel browser dell'utente, salvo esportazione manuale tramite file JSON/CSV.
+
+---
+
+ENGLISH
+
+Hero Dashboard is a free, unofficial, fan-made project.
+It is not affiliated with, sponsored by, or approved by any publisher, manufacturer, or trademark holder.
+
+The public version contains only fictional/homebrew examples.
+It does not include official card/manual text, official images, logos, scans, or pre-filled official databases.
+
+Each user is responsible for the data they enter in their local database.
+Data remains in the user's browser unless manually exported through JSON/CSV files.

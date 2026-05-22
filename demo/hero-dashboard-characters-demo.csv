@@ -1,0 +1,5 @@
+﻿id,nome,giocatore,classe,corpoMax,corpoAttuale,menteMax,menteAttuale,attaccoBase,difesaBase,movimentoBase,oro,stato,note
+hero_arian,Arian,Demo 1,Guardiana,7,7,3,3,2,2,2,120,Vivo,Personaggio dimostrativo inventato.
+hero_selka,Selka,Demo 2,Cartografo,6,5,4,4,2,2,2,85,Ferito,Personaggio dimostrativo inventato.
+hero_nym,Nym,Demo 3,Mistica,4,4,7,6,1,2,2,60,Vivo,Personaggio dimostrativo inventato.
+hero_odrin,Odrin,Demo 4,Bracconiere,5,5,4,4,2,2,2,95,Vivo,Personaggio dimostrativo inventato.
