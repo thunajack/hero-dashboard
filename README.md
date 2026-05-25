@@ -14,7 +14,6 @@ Il progetto è distribuito come interfaccia vuota/personalizzabile con dati demo
 
 - Apri `index.html` per la versione italiana.
 - Apri `index-en.html` per la versione inglese.
-- Per pubblicarlo online con GitHub Pages, rinomina o scegli come pagina principale la versione che preferisci. In alternativa puoi tenere `index.html` come home italiana e linkare `index-en.html` come versione inglese.
 
 ### Dati e privacy
 
